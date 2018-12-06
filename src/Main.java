@@ -10,7 +10,7 @@
 //Llibreries
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.Scanner;
+
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 
@@ -22,12 +22,16 @@ public final class Main {
         Jugador jugador = new Jugador();    //S'inicialitza fora del bucle perque no s'actualitzin les monedes a 100
 
         try{
+
             //Inicialitzem fitxers json
             Gson gson = new Gson();
             JsonReader json = new JsonReader(new FileReader("resources/balls.json"));
             JsonReader json = new JsonReader(new FileReader("resources/legends.json"));
             JsonReader json = new JsonReader(new FileReader("resources/poke.json"));
-            Logica logic = gson.fromJson(json, Logica.class);
+
+            Pokemon poke = gson.fromJson(json, Pokemon.class);
+            Legend legend = gson.fromJson(json, Legend.class);
+            Ball ball = gson.fromJson(json, Ball.class);
 
             do{
                 menu.mostraMenu();
