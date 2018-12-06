@@ -11,4 +11,5 @@ public class Jugador {
         this.monedes = 1000;
     }
 
+
 }

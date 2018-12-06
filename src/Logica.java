@@ -51,7 +51,7 @@ public class Logica {
         confirmacio = entrada.nextInt();
 
         if (confirmacio == 'y'){
-            Jugador.monedes =+ monedes;
+            Jugador.monedes =+ monedes;   //S'ha de utilitzar un setter de la classe jugador (no podem accedir a la variable monedes)
         }
 
     }
