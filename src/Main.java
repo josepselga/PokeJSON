@@ -5,37 +5,54 @@
  * @Data creacio: 29/11/2018
  * @Data ultima modificacio:
  *
- *********************************************** */
+ ************************************************/
 
 //Llibreries
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.Scanner;
+import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
 
 
 public final class Main {
     public static void main(String[] args) {
 
         Menu menu = new Menu();
-        Jugador jugador = new Jugador();                                                                                //S'inicialitza fora del bucle perque no s'actualitzin les monedes a 100
-        //Aaaaaa
-        do{
-            menu.mostraMenu();
-            menu.comprovaOpcio();
+        Jugador jugador = new Jugador();    //S'inicialitza fora del bucle perque no s'actualitzin les monedes a 100
 
-            switch (menu.getOpcio()){
+        try{
+            //Inicialitzem fitxers json
+            Gson gson = new Gson();
+            JsonReader json = new JsonReader(new FileReader("resources/balls.json"));
+            JsonReader json = new JsonReader(new FileReader("resources/legends.json"));
+            JsonReader json = new JsonReader(new FileReader("resources/poke.json"));
+            Logica logic = gson.fromJson(json, Logica.class);
 
-                case 1:
-                    Logica.afegeixMonedes();
-                case 2:
-                case 3:
-                case 4:
-                case 5:
-                case 6:
-                case 7:
-                case 8:
-                case 9:
-                    System.out.println("Adeu! Ens veiem aviat :)");
-                    break;
-            }
+            do{
+                menu.mostraMenu();
+                menu.comprovaOpcio();
 
-        }while (menu.getOpcio() != 9);
+                switch (menu.getOpcio()){
+
+                    case 1:
+                        Logica.afegeixMonedes();
+                    case 2:
+                    case 3:
+                    case 4:
+                    case 5:
+                    case 6:
+                    case 7:
+                    case 8:
+                    case 9:
+                        System.out.println("Adeu! Ens veiem aviat :)");
+                        break;
+                }
+
+            }while (menu.getOpcio() != 9);
+
+        }catch (FileNotFoundException e) {
+            System.err.println("Error al intentar obrir fitxer");
+        }
     }
 }

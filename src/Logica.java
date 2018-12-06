@@ -2,11 +2,13 @@ import java.util.Scanner;
 
 public class Logica {
 
+    //Atributs de la classe
     private Pokemon[] pokemons;
 
+    //Metodes de la clase
     public void afegeixMonedes(){
 
-        int monedes = -1;
+        float monedes = -1;
         float preu = 0;
         char confirmacio;
 

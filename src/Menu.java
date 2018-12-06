@@ -3,8 +3,10 @@ import java.util.Scanner;
 
 public class Menu {
 
+    //Atributs de la clase
     private int opcio;
 
+    //Metodes de la classe
     public Menu(){
         opcio = 0;
     }
