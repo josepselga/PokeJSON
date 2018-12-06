@@ -25,13 +25,13 @@ public final class Main {
 
             //Inicialitzem fitxers json
             Gson gson = new Gson();
-            JsonReader json = new JsonReader(new FileReader("resources/balls.json"));
-            JsonReader json = new JsonReader(new FileReader("resources/legends.json"));
-            JsonReader json = new JsonReader(new FileReader("resources/poke.json"));
+            JsonReader json1 = new JsonReader(new FileReader("resources/balls.json"));
+            JsonReader json2 = new JsonReader(new FileReader("resources/legends.json"));
+            JsonReader json3 = new JsonReader(new FileReader("resources/poke.json"));
 
-            Pokemon poke = gson.fromJson(json, Pokemon.class);
-            Legend legend = gson.fromJson(json, Legend.class);
-            Ball ball = gson.fromJson(json, Ball.class);
+            Ball ball = gson.fromJson(json1, Ball.class);
+            Legend legend = gson.fromJson(json2, Legend.class);
+            Pokemon poke = gson.fromJson(json3, Pokemon.class);
 
             do{
                 menu.mostraMenu();
@@ -41,6 +41,7 @@ public final class Main {
 
                     case 1:
                         Logica.afegeixMonedes();
+                        break;
                     case 2:
                     case 3:
                     case 4:
