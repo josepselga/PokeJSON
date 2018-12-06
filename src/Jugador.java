@@ -5,6 +5,7 @@ public class Jugador {
     private int[] huntedPokemon;
 
     //Metodes de la clase
+    //Getters
     public int getMonedes() {
         return monedes;
     }
