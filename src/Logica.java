@@ -4,15 +4,16 @@ public class Logica {
 
     //Atributs de la classe
     private Pokemon[] pokemons;
+    Jugador jugador = new Jugador();
 
     //Metodes de la clase
     public void afegeixMonedes(){
 
-        float monedes = -1;
-        float preu = 0;
-        char confirmacio;
+        double monedes = -1;
+        double preu = 0;
 
-        Jugador jugador = new Jugador();
+
+
         System.out.println("Quantes monedes vols comprar?");
         Scanner entrada = new Scanner (System.in);
 
@@ -42,7 +43,7 @@ public class Logica {
         }
 
         if (monedes >= 1000 && monedes < 10000){
-            preu = monedes * 0.005
+            preu = monedes * 0.005;
         }
 
         if (monedes >= 10000){
@@ -50,10 +51,10 @@ public class Logica {
         }
 
         System.out.println ("El preu total es de" + preu + "€. Confirma la compra? (Y/N)");
-        confirmacio = entrada.nextInt();
+        char confirmacio = entrada.next().charAt(0);
 
         if (confirmacio == 'y'){
-            Jugador.monedes =+ monedes;   //S'ha de utilitzar un setter de la classe jugador (no podem accedir a la variable monedes)
+            jugador.setMonedes(jugador.getMonedes() + (int)monedes);   //S'ha de utilitzar un setter de la classe jugador (no podem accedir a la variable monedes)
         }
 
     }

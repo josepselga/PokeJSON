@@ -20,7 +20,7 @@ public final class Main {
 
         Menu menu = new Menu();
         Jugador jugador = new Jugador();    //S'inicialitza fora del bucle perque no s'actualitzin les monedes a 100
-
+        Logica logic = new Logica();
         try{
 
             //Inicialitzem fitxers json
@@ -40,7 +40,7 @@ public final class Main {
                 switch (menu.getOpcio()){
 
                     case 1:
-                        Logica.afegeixMonedes();
+                        logic.afegeixMonedes();
                         break;
                     case 2:
                     case 3:

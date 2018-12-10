@@ -14,5 +14,7 @@ public class Jugador {
         this.monedes = 1000;
     }
 
-
+    public void setMonedes(int monedes) {
+        this.monedes = monedes;
+    }
 }
