@@ -23,17 +23,16 @@ public class Menu {
 
     public void comprovaOpcio (){
         Scanner entrada = new Scanner (System.in);
-        int opcio = 0;
 
         try {
-            opcio = entrada.nextInt();
+            this.opcio = entrada.nextInt();
             if (opcio < 1 || opcio > 9){
                 System.out.println("Error! Opció incorrecta!");
-                opcio = 0;
+                this.opcio = 0;
             }
         }catch (java.util.InputMismatchException e) {
             System.out.println("Error! Introdueix un número!");
-            opcio = 0;
+            this.opcio = 0;
         }
     }
 }

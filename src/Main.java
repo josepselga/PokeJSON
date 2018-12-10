@@ -29,16 +29,16 @@ public final class Main {
             JsonReader json2 = new JsonReader(new FileReader("resources/legends.json"));
             JsonReader json3 = new JsonReader(new FileReader("resources/poke.json"));
 
-            Ball ball = gson.fromJson(json1, Ball.class);
-            Legend legend = gson.fromJson(json2, Legend.class);
-            Pokemon poke = gson.fromJson(json3, Pokemon.class);
+            //Ball ball = gson.fromJson(json1, Ball.class);
+            //Legend legend = gson.fromJson(json2, Legend.class);
+            //Pokemon poke = gson.fromJson(json3, Pokemon.class);
 
             do{
                 menu.mostraMenu();
                 menu.comprovaOpcio();
+                System.out.println("Opcio escollida:" + menu.getOpcio());
 
                 switch (menu.getOpcio()){
-
                     case 1:
                         logic.afegeixMonedes();
                         break;

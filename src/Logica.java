@@ -50,7 +50,7 @@ public class Logica {
             preu = monedes * 0.0025;
         }
 
-        System.out.println ("El preu total es de" + preu + "€. Confirma la compra? (Y/N)");
+        System.out.println ("El preu total es de " + preu + "€. Confirma la compra? (Y/N)");
         char confirmacio = entrada.next().charAt(0);
 
         if (confirmacio == 'y'){
