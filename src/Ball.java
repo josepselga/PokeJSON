@@ -14,7 +14,6 @@ public class Ball {
 
     //Metodes de la clase
 
-
     public Ball(String name, int capture_rate, int price) {
         this.name = name;
         this.capture_rate = capture_rate;

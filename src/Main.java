@@ -8,11 +8,6 @@
 //Llibreries
 
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import com.google.gson.Gson;
-import com.google.gson.stream.JsonReader;
-
 
 public final class Main {
     public static void main(String[] args) {
@@ -22,19 +17,9 @@ public final class Main {
         Logica logic = new Logica();
         LecturaFitxers json = new LecturaFitxers();
 
-        try{
+        //try{
 
-          /*  //Inicialitzem fitxers json
-            Gson gson = new Gson();
-            JsonReader json1 = new JsonReader(new FileReader("resources/balls.json"));
-            //JsonReader json2 = new JsonReader(new FileReader("resources/legends.json"));
-            JsonReader json3 = new JsonReader(new FileReader("resources/poke.json"));
-
-            Ball[] balls = gson.fromJson(json1, Ball[].class);
-            //Legend legend = gson.fromJson(json2, Legend.class);
-            Pokemon[] poke = gson.fromJson(json3, Pokemon[].class);
-            */
-
+            json.llegeixFitxers();
             do{
                 menu.mostraMenu();
                 menu.comprovaOpcio();
@@ -44,7 +29,7 @@ public final class Main {
                         logic.afegeixMonedes(jugador);
                         break;
                     case 2:
-                        logic.compraObjectes(jugador);
+                        logic.compraObjectes(jugador, json.getBalls());
                         break;
                     case 3:
                         logic.consultaInventari(jugador);
@@ -61,8 +46,8 @@ public final class Main {
 
             }while (menu.getOpcio() != 9);
 
-        }catch (FileNotFoundException e) {
+       /*}catch (FileNotFoundException e) {
             System.err.println("Error al intentar obrir fitxer");
-        }
+        }*/
     }
 }

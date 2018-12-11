@@ -10,7 +10,6 @@ import java.util.Scanner;
 public class Logica {
 
     //Atributs de la classe
-    private Pokemon[] pokemons;
 
     //Metodes de la clase
     public void afegeixMonedes(Jugador jugador){
@@ -66,13 +65,13 @@ public class Logica {
 
     }
 
-    public void compraObjectes(Jugador jugador){
+    public void compraObjectes(Jugador jugador, Ball balls[]){
         Scanner entrada = new Scanner (System.in);
 
         System.out.println ("Teniu " + jugador.getMonedes() + " monedes.");
         System.out.println ("Pokéballs disponibles:");
-        for(int i = 0; i < 5; i++){
-
+        for(int i = 0; i < balls.length; i++){
+            System.out.println (balls[i].getName());
         }
         char opcio = entrada.next().charAt(0);
         System.out.println ("Escull una opció:");
