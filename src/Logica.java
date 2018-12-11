@@ -1,3 +1,10 @@
+/** Clase amb la logica del programa
+ * @author Josep Lluis
+ * @author Josep Selga
+ * @version 1.5
+ * @since 1.0
+ */
+
 import java.util.Scanner;
 
 public class Logica {
@@ -11,8 +18,6 @@ public class Logica {
 
         double monedes = -1;
         double preu = 0;
-
-
 
         System.out.println("Quantes monedes vols comprar?");
         Scanner entrada = new Scanner (System.in);
@@ -55,7 +60,40 @@ public class Logica {
 
         if (confirmacio == 'y'){
             jugador.setMonedes(jugador.getMonedes() + (int)monedes);   //S'ha de utilitzar un setter de la classe jugador (no podem accedir a la variable monedes)
+            System.out.println ("S'han afegit " + (int)monedes + " monedes al seu compte.");
+        }else{
+            System.out.println ("Compra cancel·lada.");
         }
 
     }
+
+    public void compraObjectes(){
+        Scanner entrada = new Scanner (System.in);
+
+        System.out.println ("Teniu " + jugador.getMonedes() + " monedes.");
+        System.out.println ("Pokéballs disponibles:");
+        for(int i = 0; i < 5; i++){
+
+        }
+        char opcio = entrada.next().charAt(0);
+        System.out.println ("Escull una opció:");
+
+        //Comprobar opcio correcte
+
+        System.out.println ("Quantes unitats en vol comprar?");
+        int unitats = entrada.nextInt();
+
+        //Comprobar unitats
+
+        if(){
+            System.out.println ("S'han afegit " + unitats + tipus + " al seu compte a canvi de " + preu + " monedes.");
+        }else{
+            System.out.println ("Ho sentim, però no disposa de suficients monedes.");
+        }
+    }
+
+    public void consultaInventari(){
+
+    }
+
 }

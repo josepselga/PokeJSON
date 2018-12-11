@@ -1,11 +1,9 @@
-/* **********************************************
- *
- * @Proposit: P1_josep.lp_josep.selga
- * @Autor/s: Josep Lluis __ Josep Selga
- * @Data creacio: 29/11/2018
- * @Data ultima modificacio:
- *
- ************************************************/
+/** Clase main PokeJson
+ * @author Josep Lluis
+ * @author Josep Selga
+ * @version 1.5
+ * @since 1.0
+ */
 
 //Llibreries
 import java.io.FileNotFoundException;
@@ -19,8 +17,9 @@ public final class Main {
     public static void main(String[] args) {
 
         Menu menu = new Menu();
-        Jugador jugador = new Jugador();    //S'inicialitza fora del bucle perque no s'actualitzin les monedes a 100
+        Jugador jugador = new Jugador();    /**S'inicialitza fora del bucle perque no s'actualitzin les monedes a 100*/
         Logica logic = new Logica();
+
         try{
 
             //Inicialitzem fitxers json
@@ -36,14 +35,17 @@ public final class Main {
             do{
                 menu.mostraMenu();
                 menu.comprovaOpcio();
-                System.out.println("Opcio escollida:" + menu.getOpcio());
 
                 switch (menu.getOpcio()){
                     case 1:
                         logic.afegeixMonedes();
                         break;
                     case 2:
+                        logic.compraObjectes();
+                        break;
                     case 3:
+                        logic.consultaInventari();
+                        break;
                     case 4:
                     case 5:
                     case 6:
