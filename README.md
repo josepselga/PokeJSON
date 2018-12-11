@@ -4,9 +4,13 @@
 COSES A FER
 
 ---Josep Lluís---
+
 Cas 1:
-    -Peta quan entres un nombre negatiu de monedes!!!
-    -El preu ha de ser nomes de dos decimals
+
+   -Peta quan entres un nombre negatiu de monedes!!!
+   
+   -El preu ha de ser nomes de dos decimals
 
 ---Josep Selga---
-    -Cas 2
+    
+Cas 2
