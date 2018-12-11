@@ -11,7 +11,6 @@ public class Logica {
 
     //Atributs de la classe
     private Pokemon[] pokemons;
-    //Jugador jugador = new Jugador();
 
     //Metodes de la clase
     public void afegeixMonedes(Jugador jugador){

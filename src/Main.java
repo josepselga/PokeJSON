@@ -6,9 +6,10 @@
  */
 
 //Llibreries
+
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 
@@ -19,10 +20,11 @@ public final class Main {
         Menu menu = new Menu();
         Jugador jugador = new Jugador();
         Logica logic = new Logica();
+        LecturaFitxers json = new LecturaFitxers();
 
         try{
 
-            //Inicialitzem fitxers json
+          /*  //Inicialitzem fitxers json
             Gson gson = new Gson();
             JsonReader json1 = new JsonReader(new FileReader("resources/balls.json"));
             //JsonReader json2 = new JsonReader(new FileReader("resources/legends.json"));
@@ -31,6 +33,7 @@ public final class Main {
             Ball[] balls = gson.fromJson(json1, Ball[].class);
             //Legend legend = gson.fromJson(json2, Legend.class);
             Pokemon[] poke = gson.fromJson(json3, Pokemon[].class);
+            */
 
             do{
                 menu.mostraMenu();
