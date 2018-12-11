@@ -13,7 +13,6 @@ public class Ball {
     private int price;
 
     //Metodes de la clase
-
     public Ball(String name, int capture_rate, int price) {
         this.name = name;
         this.capture_rate = capture_rate;
@@ -34,7 +33,6 @@ public class Ball {
     public void setName(String name) {
         this.name = name;
     }
-
     public void setPrice(int price) {
         this.price = price;
     }

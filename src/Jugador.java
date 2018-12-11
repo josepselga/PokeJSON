@@ -14,7 +14,6 @@ public class Jugador {
     private ArrayList<Ball> ball = new ArrayList<>();
 
     //Constructor
-
     public Jugador(Ball[] ball) {
         this.monedes = 1000;
         //this.huntedPokemon = huntedPokemon;

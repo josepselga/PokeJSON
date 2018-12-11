@@ -5,7 +5,6 @@
  * @since 1.0
  */
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Menu {

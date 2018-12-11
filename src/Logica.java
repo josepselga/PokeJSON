@@ -70,24 +70,39 @@ public class Logica {
 
         System.out.println ("Teniu " + jugador.getMonedes() + " monedes.");
         System.out.println ("Pokéballs disponibles:");
-        for(int i = 0; i < balls.length; i++){
-            System.out.println (balls[i].getName());
+        int i;
+        for(i = 0; i < balls.length; i++){
+            System.out.println ("   " + (char)(97+i) + ")" + balls[i].getName() + ":    " + balls[i].getPrice() + " monedes");
         }
-        char opcio = entrada.next().charAt(0);
-        System.out.println ("Escull una opció:");
+        System.out.println (" ");
 
         //Comprobar opcio correcte
+        char opcio;
+        do{
+            System.out.println ("Escull una opció:");
+            opcio = entrada.next().charAt(0);
+            if(opcio > (97+i) || opcio < 97){
+                System.out.println ("Introdueix una opcio valida.");
+            }
+        }while(opcio > (97+i) || opcio < 97);
 
         System.out.println ("Quantes unitats en vol comprar?");
         int unitats = entrada.nextInt();
+        //Comprobar numero enter
 
-        //Comprobar unitats
-
-        /*if(true){
-            System.out.println ("S'han afegit " + unitats + tipus + " al seu compte a canvi de " + preu + " monedes.");
+        //Comprobar saldo suficient
+        int cost = unitats * balls[opcio-97].getPrice();
+        if(cost <= jugador.getMonedes()){
+            if(unitats == 1){
+                System.out.println ("S'ha afegit " + unitats + " " + balls[opcio-97].getName() + " al seu compte a canvi de " + balls[opcio-97].getPrice() + " monedes.");
+            }else{
+                System.out.println ("S'han afegit " + unitats + " " + balls[opcio-97].getName() + "s al seu compte a canvi de " + balls[opcio-97].getPrice() + " monedes.");
+            }
+            //Afegir balls al jugador
+            jugador.setMonedes(jugador.getMonedes()-cost);
         }else{
             System.out.println ("Ho sentim, però no disposa de suficients monedes.");
-        }*/
+        }
     }
 
     public void consultaInventari(Jugador jugador){

@@ -18,7 +18,6 @@ public final class Main {
         Jugador jugador = new Jugador(json.getBalls());
         Logica logic = new Logica();
 
-
         //try{
             do{
                 menu.mostraMenu();
