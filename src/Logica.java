@@ -91,7 +91,9 @@ public class Logica {
     }
 
     public void consultaInventari(Jugador jugador){
-
+        System.out.println ("Inventari:");
+        for(int i = 0 ; i < jugador.getBall().size() ; i++){
+            System.out.println ("   - " + jugador.getBall().get(i).getPrice() + "x " + jugador.getBall().get(i).getName());
+        }
     }
-
 }

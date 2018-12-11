@@ -13,13 +13,13 @@ public final class Main {
     public static void main(String[] args) {
 
         Menu menu = new Menu();
-        Jugador jugador = new Jugador();
-        Logica logic = new Logica();
         LecturaFitxers json = new LecturaFitxers();
+        json.llegeixFitxers();
+        Jugador jugador = new Jugador(json.getBalls());
+        Logica logic = new Logica();
+
 
         //try{
-
-            json.llegeixFitxers();
             do{
                 menu.mostraMenu();
                 menu.comprovaOpcio();

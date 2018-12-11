@@ -30,4 +30,12 @@ public class Ball {
     public int getPrice() {
         return price;
     }
+    //Setters
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
 }
