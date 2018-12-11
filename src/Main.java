@@ -17,7 +17,7 @@ public final class Main {
     public static void main(String[] args) {
 
         Menu menu = new Menu();
-        Jugador jugador = new Jugador();    /**S'inicialitza fora del bucle perque no s'actualitzin les monedes a 100*/
+        Jugador jugador = new Jugador();
         Logica logic = new Logica();
 
         try{
@@ -25,12 +25,12 @@ public final class Main {
             //Inicialitzem fitxers json
             Gson gson = new Gson();
             JsonReader json1 = new JsonReader(new FileReader("resources/balls.json"));
-            JsonReader json2 = new JsonReader(new FileReader("resources/legends.json"));
+            //JsonReader json2 = new JsonReader(new FileReader("resources/legends.json"));
             JsonReader json3 = new JsonReader(new FileReader("resources/poke.json"));
 
-            //Ball ball = gson.fromJson(json1, Ball.class);
+            Ball[] balls = gson.fromJson(json1, Ball[].class);
             //Legend legend = gson.fromJson(json2, Legend.class);
-            //Pokemon poke = gson.fromJson(json3, Pokemon.class);
+            Pokemon[] poke = gson.fromJson(json3, Pokemon[].class);
 
             do{
                 menu.mostraMenu();
@@ -38,13 +38,13 @@ public final class Main {
 
                 switch (menu.getOpcio()){
                     case 1:
-                        logic.afegeixMonedes();
+                        logic.afegeixMonedes(jugador);
                         break;
                     case 2:
-                        logic.compraObjectes();
+                        logic.compraObjectes(jugador);
                         break;
                     case 3:
-                        logic.consultaInventari();
+                        logic.consultaInventari(jugador);
                         break;
                     case 4:
                     case 5:

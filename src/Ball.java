@@ -13,6 +13,14 @@ public class Ball {
     private int price;
 
     //Metodes de la clase
+
+
+    public Ball(String name, int capture_rate, int price) {
+        this.name = name;
+        this.capture_rate = capture_rate;
+        this.price = price;
+    }
+
     //Getters
     public String getName() {
         return name;

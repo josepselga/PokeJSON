@@ -11,10 +11,10 @@ public class Logica {
 
     //Atributs de la classe
     private Pokemon[] pokemons;
-    Jugador jugador = new Jugador();
+    //Jugador jugador = new Jugador();
 
     //Metodes de la clase
-    public void afegeixMonedes(){
+    public void afegeixMonedes(Jugador jugador){
 
         double monedes = -1;
         double preu = 0;
@@ -67,7 +67,7 @@ public class Logica {
 
     }
 
-    public void compraObjectes(){
+    public void compraObjectes(Jugador jugador){
         Scanner entrada = new Scanner (System.in);
 
         System.out.println ("Teniu " + jugador.getMonedes() + " monedes.");
@@ -85,14 +85,14 @@ public class Logica {
 
         //Comprobar unitats
 
-        if(){
+        /*if(true){
             System.out.println ("S'han afegit " + unitats + tipus + " al seu compte a canvi de " + preu + " monedes.");
         }else{
             System.out.println ("Ho sentim, però no disposa de suficients monedes.");
-        }
+        }*/
     }
 
-    public void consultaInventari(){
+    public void consultaInventari(Jugador jugador){
 
     }
 

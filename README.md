@@ -10,6 +10,8 @@ Cas 1:
    -Peta quan entres un nombre negatiu de monedes!!!
    
    -El preu ha de ser nomes de dos decimals
+   
+   - al confirmar accepta cualsevol lletra per cancelar (afegir if q comprovi si es la n)
 
 ---Josep Selga---
     
