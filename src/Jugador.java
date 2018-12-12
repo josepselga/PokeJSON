@@ -13,7 +13,6 @@ public class Jugador {
     private int[] huntedPokemon;
     private String[] nomBalls;
     private int[] numBalls;
-    //private ArrayList<Ball> ball = new ArrayList<>();
 
     //Constructor
     public Jugador(Ball[] ball) {
@@ -38,9 +37,7 @@ public class Jugador {
     public int[] getNumBalls() {
         return numBalls;
     }
-/*public ArrayList<Ball> getBall() {
-        return ball;
-    }*/
+
     //Setters
     public void setMonedes(int monedes) {
         this.monedes = monedes;
