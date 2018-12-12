@@ -15,4 +15,6 @@ Cas 1:
 
 ---Josep Selga---
     
-Cas 2
+Cas 2  -- Acabar
+
+Cas 3 -- OK

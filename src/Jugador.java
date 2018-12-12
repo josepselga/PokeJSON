@@ -11,14 +11,18 @@ public class Jugador {
     //Atributs de la clase
     private int monedes;
     private int[] huntedPokemon;
-    private ArrayList<Ball> ball = new ArrayList<>();
+    private String[] nomBalls;
+    private int[] numBalls;
+    //private ArrayList<Ball> ball = new ArrayList<>();
 
     //Constructor
     public Jugador(Ball[] ball) {
         this.monedes = 1000;
         //this.huntedPokemon = huntedPokemon;
-        this.ball.add(ball[0]);
-        this.ball.get(0).setPrice(3);
+        nomBalls = new String[ball.length];
+        numBalls = new int[ball.length];
+        nomBalls[0] = ball[0].getName();
+        numBalls[0] = 3;
     }
 
     //Metodes de la clase
@@ -27,13 +31,17 @@ public class Jugador {
         return monedes;
     }
 
-    public ArrayList<Ball> getBall() {
-        return ball;
+    public String[] getNomBalls() {
+        return nomBalls;
     }
+
+    public int[] getNumBalls() {
+        return numBalls;
+    }
+/*public ArrayList<Ball> getBall() {
+        return ball;
+    }*/
     //Setters
-    /** Sets the player coins.
-     * @param monedes
-     */
     public void setMonedes(int monedes) {
         this.monedes = monedes;
     }

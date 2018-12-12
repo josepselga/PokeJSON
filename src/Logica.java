@@ -105,10 +105,18 @@ public class Logica {
         }
     }
 
-    public void consultaInventari(Jugador jugador){
+    public void consultaInventari(Jugador jugador, Ball[] balls){
         System.out.println ("Inventari:");
-        for(int i = 0 ; i < jugador.getBall().size() ; i++){
-            System.out.println ("   - " + jugador.getBall().get(i).getPrice() + "x " + jugador.getBall().get(i).getName());
+        for(int i = 0 ; i < jugador.getNomBalls().length ; i++){
+            if(jugador.getNumBalls()[i] != 0){
+                if(jugador.getNumBalls()[i] > 1){
+                    System.out.println ("   - " + jugador.getNumBalls()[i] + "x " + jugador.getNomBalls()[i] + "s");
+                }else{
+                    System.out.println ("   - " + jugador.getNumBalls()[i] + "x " + jugador.getNomBalls()[i]);
+                }
+            }else{
+                System.out.println ("No disposes d'inventari!");
+            }
         }
     }
 }

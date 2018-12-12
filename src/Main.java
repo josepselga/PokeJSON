@@ -31,7 +31,7 @@ public final class Main {
                         logic.compraObjectes(jugador, json.getBalls());
                         break;
                     case 3:
-                        logic.consultaInventari(jugador);
+                        logic.consultaInventari(jugador, json.getBalls());
                         break;
                     case 4:
                     case 5:
