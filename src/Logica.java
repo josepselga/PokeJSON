@@ -115,7 +115,9 @@ public class Logica {
                     System.out.println ("   - " + jugador.getNumBalls()[i] + "x " + jugador.getNomBalls()[i]);
                 }
             }else{
-                System.out.println ("No disposes d'inventari!");
+                if(i == 0){
+                    System.out.println ("No disposes d'inventari!");
+                }
             }
         }
     }
