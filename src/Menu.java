@@ -23,9 +23,17 @@ public class Menu {
 
     public void mostraMenu(){
         System.out.println (" ");
-        System.out.println ("\t1. Afegir monedes\n\t2. Comprar objectes\n\t" +
-                "3. Consultar inventari\n\t4. Buscar Pokémon salvatge\n\t5. Fer Raid\n\t6. Recerques especials actuals\n\t" +
-                "7. Informe de capturats\n\t8. Informació detallada\n\t9. Sortir\n\nSeleccioni una opció: ");
+        System.out.println ("   1. Afegir monedes ");
+        System.out.println ("   2. Comprar objectes");
+        System.out.println ("   3. Consultar inventari");
+        System.out.println ("   4. Buscar Pokémon salvatge");
+        System.out.println ("   5. Fer Raid");
+        System.out.println ("   6. Recerques especials actuals");
+        System.out.println ("   7. Informe de capturats");
+        System.out.println ("   8. Informació detallada");
+        System.out.println ("   9. Sortir");
+        System.out.println (" ");
+        System.out.println ("Seleccioni una opció: ");
     }
 
     public boolean comprovaOpcio (){
