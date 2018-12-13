@@ -37,6 +37,7 @@ public final class Main {
                     case 5:
                     case 6:
                     case 7:
+                        logic.informeCapturats();
                     case 8:
                     case 9:
                         System.out.println("Adeu! Ens veiem aviat :)");

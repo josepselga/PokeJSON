@@ -17,8 +17,11 @@ public class Jugador {
     //Constructor
     public Jugador(Ball[] ball) {
         this.monedes = 1000;
-        //this.huntedPokemon = huntedPokemon;
+        this.huntedPokemon = huntedPokemon;
         nomBalls = new String[ball.length];
+        for(int i = 1 ; i < ball.length ; i++){
+            nomBalls[i] = ball[i].getName();
+        }
         numBalls = new int[ball.length];
         nomBalls[0] = ball[0].getName();
         numBalls[0] = 3;

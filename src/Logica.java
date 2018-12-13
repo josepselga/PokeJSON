@@ -6,6 +6,9 @@
  */
 
 import java.util.Scanner;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
+import java.io.FileNotFoundException;
 
 public class Logica {
 
@@ -75,6 +78,8 @@ public class Logica {
             System.out.println ("   " + (char)(97+i) + ")" + balls[i].getName() + ":    " + balls[i].getPrice() + " monedes");
         }
         System.out.println (" ");
+        System.out.println ("   " + (char)(97+i) + ") Sortir sense comprar");
+        System.out.println (" ");
 
         //Comprobar opcio correcte
         char opcio;
@@ -99,6 +104,7 @@ public class Logica {
                 System.out.println ("S'han afegit " + unitats + " " + balls[opcio-97].getName() + "s al seu compte a canvi de " + balls[opcio-97].getPrice() + " monedes.");
             }
             //Afegir balls al jugador
+            jugador.getNumBalls()[opcio-97] += unitats;
             jugador.setMonedes(jugador.getMonedes()-cost);
         }else{
             System.out.println ("Ho sentim, però no disposa de suficients monedes.");
@@ -119,6 +125,21 @@ public class Logica {
                     System.out.println ("No disposes d'inventari!");
                 }
             }
+        }
+    }
+
+
+    public void informeCapturats(){
+        FileOutputStream pokemonsCapturats;
+        String text = "texto";
+        PrintStream result;
+        try {
+            pokemonsCapturats = new FileOutputStream("pokemonsCapturats.htm");
+            result = new PrintStream(pokemonsCapturats);
+            result.println("hola");
+            //result.close();
+            //result.delete();
+        } catch (FileNotFoundException e) {
         }
     }
 }

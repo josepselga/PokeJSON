@@ -15,6 +15,6 @@ Cas 1:
 
 ---Josep Selga---
     
-Cas 2  -- Acabar
+Cas 2  -- comprobacio entrades
 
 Cas 3 -- OK
