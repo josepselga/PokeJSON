@@ -36,7 +36,8 @@ public class LecturaFitxers {
 
     //Metodes
     public void llegeixFitxers(){
-
+        legend = new ArrayList<>();
+        mythical = new ArrayList<>();
         JSONParser parser = new JSONParser();
 
         try{
@@ -60,8 +61,6 @@ public class LecturaFitxers {
             JSONArray superQuest;
             Legend auxLegend = new Legend();
             Mythical auxMythical = new Mythical();
-            legend = new ArrayList<>();
-            mythical = new ArrayList<>();
 
             for(int i = 0 ; i < json3.size() ; i++){
                 superPoke = (JSONObject) json3.get(i);
@@ -76,7 +75,6 @@ public class LecturaFitxers {
                     auxLegend.setLongitude((double)superLocation.get("longitude"));
                     auxLegend.setLatitude((double)superLocation.get("latitude"));
                     legend.add(auxLegend);
-                    System.out.println(legend.get(0).getGymName());
                 }else{
                     auxMythical.setId((long)superPoke.get("id"));
                     auxMythical.setKind((String) superPoke.get("kind"));
@@ -89,7 +87,6 @@ public class LecturaFitxers {
                         auxMythical.addQuantity((Long)superResearch.get("quantity"));
                     }
                     mythical.add(auxMythical);
-                    System.out.println(mythical.get(0).getResearchName());
                 }
             }
 
