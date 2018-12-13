@@ -151,12 +151,11 @@ public class Logica {
         String text = "texto";
         PrintStream result;
         try {
-            pokemonsCapturats = new FileOutputStream("pokemonsCapturats.htm");
+            pokemonsCapturats = new FileOutputStream("pokemonsCapturats.html");
             result = new PrintStream(pokemonsCapturats);
             result.println("hola");
             //result.close();
-            //result.delete();
-        } catch (FileNotFoundException e) {
+        }catch (FileNotFoundException e) {
 
         }
     }
