@@ -18,12 +18,14 @@ public final class Main {
         Jugador jugador = new Jugador(json.getBalls());
         Logica logic = new Logica();
 
+        System.out.println ("Benvingut a PokéJSON, aconsegueix-los tots!");
+
+
         //try{
             do{
 
                 do{
                     menu.mostraMenu();
-                    menu.comprovaOpcio();
 
                 }while (!menu.comprovaOpcio());
 

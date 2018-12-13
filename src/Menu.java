@@ -22,7 +22,8 @@ public class Menu {
     }
 
     public void mostraMenu(){
-        System.out.println ("\nBenvingut a PokéJSON, aconsegueix-los tots!\n\t1. Afegir monedes\n\t2. Comprar objectes\n\t" +
+        System.out.println (" ");
+        System.out.println ("\t1. Afegir monedes\n\t2. Comprar objectes\n\t" +
                 "3. Consultar inventari\n\t4. Buscar Pokémon salvatge\n\t5. Fer Raid\n\t6. Recerques especials actuals\n\t" +
                 "7. Informe de capturats\n\t8. Informació detallada\n\t9. Sortir\n\nSeleccioni una opció: ");
     }
@@ -33,7 +34,7 @@ public class Menu {
         try {
             this.opcio = entrada.nextInt();
             if (opcio < 1 || opcio > 9){
-                System.out.println("Error! Opció incorrecta!");
+                System.out.println("Error! Introdueix un número entre 1 i 9!");
                 this.opcio = 0;
                 return false;
             }else{

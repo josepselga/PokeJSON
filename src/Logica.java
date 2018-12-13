@@ -5,6 +5,7 @@
  * @since 1.0
  */
 
+import java.text.DecimalFormat;
 import java.util.Scanner;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
@@ -20,13 +21,15 @@ public class Logica {
 
         double monedes = -1;
         double preu = 0;
-        Scanner entrada = new Scanner (System.in);
+        boolean flag = false;
+
+        DecimalFormat df = new DecimalFormat("#0.00");
 
         do {
             try {
+                Scanner entrada = new Scanner (System.in);
                 System.out.println("Quantes monedes vols comprar?");
                 monedes = entrada.nextInt();
-                entrada.close();
 
                 if (monedes < 0) {
                     System.out.println("Error! S'han d'introduïr valors estrictament positius!");
@@ -58,20 +61,27 @@ public class Logica {
             preu = monedes * 0.0025;
         }
 
-        System.out.println ("El preu total es de " + preu + "€. Confirma la compra? (Y/N)");
-        String confirmacio = entrada.next();
+        System.out.println ("El preu total es de " + df.format(preu) + "€. Confirma la compra? (Y/N)");
 
-        if (confirmacio.equalsIgnoreCase("y")){
-            jugador.setMonedes(jugador.getMonedes() + (int)monedes);   //S'ha de utilitzar un setter de la classe jugador (no podem accedir a la variable monedes)
-            System.out.println ("S'han afegit " + (int)monedes + " monedes al seu compte.");
-        }else{
+        do {
+            Scanner entrada = new Scanner (System.in);
+            String confirmacio = entrada.next();
 
-            if (confirmacio.equalsIgnoreCase("n")) {
-                System.out.println("Compra cancel·lada.");
-            }else{
-                System.out.println("Introdueix un caràcter correcte!");
+            if (confirmacio.equalsIgnoreCase("y")) {
+                jugador.setMonedes(jugador.getMonedes() + (int) monedes);                                                    //S'ha de utilitzar un setter de la classe jugador (no podem accedir a la variable monedes)
+                System.out.println("S'han afegit " + (int) monedes + " monedes al seu compte.");
+                flag = true;
+            } else {
+
+                if (confirmacio.equalsIgnoreCase("n")) {
+                    System.out.println("Compra cancel·lada.");
+                    flag = true;
+                } else {
+                    System.out.println("Introdueixi un caràcter correcte!");
+                    System.out.println ("El preu total es de " + df.format(preu) + "€. Confirma la compra? (Y/N)");
+                }
             }
-        }
+        }while (!flag);
 
     }
 
