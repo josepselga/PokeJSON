@@ -1,3 +1,7 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.text.ParseException;
+
 /** Clase main PokeJson
  * @author Josep Lluis
  * @author Josep Selga
@@ -12,16 +16,15 @@
 public final class Main {
     public static void main(String[] args) {
 
-        Menu menu = new Menu();
-        LecturaFitxers json = new LecturaFitxers();
-        json.llegeixFitxers();
-        Jugador jugador = new Jugador(json.getBalls());
-        Logica logic = new Logica();
+        try{
+            Menu menu = new Menu();
+            LecturaFitxers json = new LecturaFitxers();
+            json.llegeixFitxers();
+            Jugador jugador = new Jugador(json.getBalls());
+            Logica logic = new Logica();
 
-        System.out.println ("Benvingut a PokéJSON, aconsegueix-los tots!");
+            System.out.println ("Benvingut a PokéJSON, aconsegueix-los tots!");
 
-
-        //try{
             do{
 
                 do{
@@ -61,8 +64,10 @@ public final class Main {
 
             }while (menu.getOpcio() != 9);
 
-       /*}catch (FileNotFoundException e) {
+        }catch (FileNotFoundException e) {
             System.err.println("Error al intentar obrir fitxer");
-        }*/
+        } catch (IOException | org.json.simple.parser.ParseException e) {
+            e.printStackTrace();
+        }
     }
 }
