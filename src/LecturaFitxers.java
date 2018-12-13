@@ -28,8 +28,8 @@ public class LecturaFitxers {
             JsonReader json2 = new JsonReader(new FileReader("resources/poke.json"));
             //JsonReader json3 = new JsonReader(new FileReader("resources/legends.json"));
 
-            balls = gson.fromJson(json1, Ball[].class);
-            poke = gson.fromJson(json2, Pokemon[].class);
+            balls = (Ball[]) gson.fromJson(json1, Ball[].class);
+            poke = (Pokemon[]) gson.fromJson(json2, Pokemon[].class);
             //legend = gson.fromJson(json3, Legend.class);
 
         }catch(FileNotFoundException e){

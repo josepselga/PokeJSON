@@ -11,21 +11,23 @@ import java.io.PrintStream;
 import java.io.FileNotFoundException;
 
 public class Logica {
-
-    //Atributs de la classe
+    public Logica() {
+    }
+//Atributs de la classe
 
     //Metodes de la clase
     public void afegeixMonedes(Jugador jugador){
 
         double monedes = -1;
         double preu = 0;
-
-        System.out.println("Quantes monedes vols comprar?");
         Scanner entrada = new Scanner (System.in);
 
         do {
             try {
+                System.out.println("Quantes monedes vols comprar?");
                 monedes = entrada.nextInt();
+                entrada.close();
+
                 if (monedes < 0) {
                     System.out.println("Error! S'han d'introduïr valors estrictament positius!");
                     monedes = 0;
@@ -57,18 +59,23 @@ public class Logica {
         }
 
         System.out.println ("El preu total es de " + preu + "€. Confirma la compra? (Y/N)");
-        char confirmacio = entrada.next().charAt(0);
+        String confirmacio = entrada.next();
 
-        if (confirmacio == 'y'){
+        if (confirmacio.equalsIgnoreCase("y")){
             jugador.setMonedes(jugador.getMonedes() + (int)monedes);   //S'ha de utilitzar un setter de la classe jugador (no podem accedir a la variable monedes)
             System.out.println ("S'han afegit " + (int)monedes + " monedes al seu compte.");
         }else{
-            System.out.println ("Compra cancel·lada.");
+
+            if (confirmacio.equalsIgnoreCase("n")) {
+                System.out.println("Compra cancel·lada.");
+            }else{
+                System.out.println("Introdueix un caràcter correcte!");
+            }
         }
 
     }
 
-    public void compraObjectes(Jugador jugador, Ball balls[]){
+    public void compraObjectes(Jugador jugador, Ball[] balls) {
         Scanner entrada = new Scanner (System.in);
 
         System.out.println ("Teniu " + jugador.getMonedes() + " monedes.");
@@ -140,6 +147,7 @@ public class Logica {
             //result.close();
             //result.delete();
         } catch (FileNotFoundException e) {
+
         }
     }
 }

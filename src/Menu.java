@@ -27,7 +27,7 @@ public class Menu {
                 "7. Informe de capturats\n\t8. Informació detallada\n\t9. Sortir\n\nSeleccioni una opció: ");
     }
 
-    public void comprovaOpcio (){
+    public boolean comprovaOpcio (){
         Scanner entrada = new Scanner (System.in);
 
         try {
@@ -35,10 +35,14 @@ public class Menu {
             if (opcio < 1 || opcio > 9){
                 System.out.println("Error! Opció incorrecta!");
                 this.opcio = 0;
+                return false;
+            }else{
+                return true;
             }
         }catch (java.util.InputMismatchException e) {
             System.out.println("Error! Introdueix un número!");
             this.opcio = 0;
+            return false;
         }
     }
 }

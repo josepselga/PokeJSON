@@ -20,8 +20,12 @@ public final class Main {
 
         //try{
             do{
-                menu.mostraMenu();
-                menu.comprovaOpcio();
+
+                do{
+                    menu.mostraMenu();
+                    menu.comprovaOpcio();
+
+                }while (!menu.comprovaOpcio());
 
                 switch (menu.getOpcio()){
                     case 1:
@@ -34,11 +38,20 @@ public final class Main {
                         logic.consultaInventari(jugador, json.getBalls());
                         break;
                     case 4:
+                        System.out.println("Arte PUTA");
+                        break;
                     case 5:
+                        System.out.println("Arte PUTA");
+                        break;
                     case 6:
+                        System.out.println("Arte PUTA");
+                        break;
                     case 7:
                         logic.informeCapturats();
+                        break;
                     case 8:
+                        System.out.println("Arte PUTA");
+                        break;
                     case 9:
                         System.out.println("Adeu! Ens veiem aviat :)");
                         break;
