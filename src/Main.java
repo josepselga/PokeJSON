@@ -9,8 +9,6 @@ import java.text.ParseException;
  * @since 1.0
  */
 
-//Llibreries
-
 
 
 public final class Main {
@@ -22,6 +20,7 @@ public final class Main {
             json.llegeixFitxers();
             Jugador jugador = new Jugador(json.getBalls());
             Logica logic = new Logica();
+            GenerarFitxers fitxers = new GenerarFitxers();
 
             System.out.println ("Benvingut a PokéJSON, aconsegueix-los tots!");
 
@@ -52,10 +51,10 @@ public final class Main {
                         System.out.println("Arte PUTA");
                         break;
                     case 7:
-                        logic.informeCapturats();
+                        fitxers.informeCapturats();
                         break;
                     case 8:
-                        System.out.println("Arte PUTA");
+                        fitxers.infoPokemon();
                         break;
                     case 9:
                         System.out.println("Adeu! Ens veiem aviat :)");

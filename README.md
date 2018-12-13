@@ -8,7 +8,9 @@ COSES A FER
 Cas 1: OK 
 
 ---Josep Selga---
-    
+ 
+Lecturafitxers  --  OK
+
 Cas 2  -- comprobacio entrades
 
 Cas 3 -- OK
