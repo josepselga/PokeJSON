@@ -9,7 +9,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-
 public class LecturaFitxers {
 
     //Atributs
@@ -17,7 +16,6 @@ public class LecturaFitxers {
     private Pokemon[] poke;
     private ArrayList<Legend> legend;
     private ArrayList<Mythical> mythical;
-
 
     //Getters
     public Ball[] getBalls() {

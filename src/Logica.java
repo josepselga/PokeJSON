@@ -6,15 +6,16 @@
  */
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.io.FileNotFoundException;
 
 public class Logica {
+
     public Logica() {
     }
-//Atributs de la classe
 
     //Metodes de la clase
     public void afegeixMonedes(Jugador jugador){
@@ -128,7 +129,7 @@ public class Logica {
         }
     }
 
-    public void consultaInventari(Jugador jugador, Ball[] balls){
+    public void consultaInventari(Jugador jugador){
         System.out.println ("Inventari:");
         for(int i = 0 ; i < jugador.getNomBalls().length ; i++){
             if(jugador.getNumBalls()[i] != 0){
@@ -145,4 +146,18 @@ public class Logica {
         }
     }
 
+    public void buscaPokemonSalvatge(){
+        Scanner entrada = new Scanner (System.in);
+        System.out.println("Quin Pokémon vol buscar?");
+    }
+
+    public void ferRaid(){
+
+    }
+
+    public void recerquesEspecials(Jugador jugador , ArrayList<Mythical> mythicals){
+        System.out.println("Recerques Especials:");
+
+
+    }
 }

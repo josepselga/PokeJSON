@@ -10,14 +10,16 @@ public class Jugador {
 
     //Atributs de la clase
     private int monedes;
-    private int[] huntedPokemon;
+    private int[] idHunted;
+    private int[] numHunted;
     private String[] nomBalls;
     private int[] numBalls;
 
     //Constructor
-    public Jugador(Ball[] ball) {
+    public Jugador(Ball[] ball, int numPokemons) {
         this.monedes = 1000;
-        this.huntedPokemon = huntedPokemon;
+        idHunted = new int[numPokemons];
+        numHunted = new int [numPokemons];
         nomBalls = new String[ball.length];
         for(int i = 1 ; i < ball.length ; i++){
             nomBalls[i] = ball[i].getName();
@@ -32,11 +34,9 @@ public class Jugador {
     public int getMonedes() {
         return monedes;
     }
-
     public String[] getNomBalls() {
         return nomBalls;
     }
-
     public int[] getNumBalls() {
         return numBalls;
     }

@@ -13,6 +13,12 @@ public class Pokemon {
     private int capture_rate;
 
     //Metodes de la clase
+    public Pokemon(int id, String nom, int capture_rate) {
+        this.id = id;
+        this.nom = nom;
+        this.capture_rate = capture_rate;
+    }
+
     //Getters
     public int getId() {
         return id;

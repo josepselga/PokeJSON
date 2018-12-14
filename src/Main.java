@@ -10,7 +10,6 @@ import java.text.ParseException;
  */
 
 
-
 public final class Main {
     public static void main(String[] args) {
 
@@ -18,7 +17,7 @@ public final class Main {
             Menu menu = new Menu();
             LecturaFitxers json = new LecturaFitxers();
             json.llegeixFitxers();
-            Jugador jugador = new Jugador(json.getBalls());
+            Jugador jugador = new Jugador(json.getBalls(), (json.getPoke().length + json.getLegend().size() + json.getMythical().size()));
             Logica logic = new Logica();
             GenerarFitxers fitxers = new GenerarFitxers();
 
@@ -28,7 +27,6 @@ public final class Main {
 
                 do{
                     menu.mostraMenu();
-
                 }while (!menu.comprovaOpcio());
 
                 switch (menu.getOpcio()){
@@ -39,16 +37,16 @@ public final class Main {
                         logic.compraObjectes(jugador, json.getBalls());
                         break;
                     case 3:
-                        logic.consultaInventari(jugador, json.getBalls());
+                        logic.consultaInventari(jugador);
                         break;
                     case 4:
-                        System.out.println("Arte PUTA");
+                        logic.buscaPokemonSalvatge();
                         break;
                     case 5:
-                        System.out.println("Arte PUTA");
+                       logic.ferRaid();
                         break;
                     case 6:
-                        System.out.println("Arte PUTA");
+                        logic.recerquesEspecials(jugador, json.getMythical());
                         break;
                     case 7:
                         fitxers.informeCapturats();

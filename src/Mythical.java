@@ -21,9 +21,6 @@ public class Mythical {
         this.quantity = quantity;
     }
 
-    //ArrayList<String> nombreArrayList = new ArrayList<String>();
-
-
     //Getters
     public long getId() {
         return id;
@@ -58,6 +55,7 @@ public class Mythical {
         this.quantity = quantity;
     }
 
+    //Add's
     public void addTarget(Long target){
         this.target.add(target);
     }
