@@ -16,7 +16,7 @@ import com.google.gson.JsonParser;
 
 public class GenerarFitxers {
 
-    public void informeCapturats(){
+    public void informeCapturats(Jugador jugador){
         FileOutputStream pokemonsCapturats;
         PrintStream result;
         try {
@@ -28,7 +28,6 @@ public class GenerarFitxers {
 
         }
     }
-
     public void infoPokemon(){
         String nomPokemon;
         int idPokemon;

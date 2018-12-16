@@ -49,7 +49,7 @@ public final class Main {
                         logic.recerquesEspecials(jugador, json.getMythical());
                         break;
                     case 7:
-                        fitxers.informeCapturats();
+                        fitxers.informeCapturats(jugador);
                         break;
                     case 8:
                         fitxers.infoPokemon();
