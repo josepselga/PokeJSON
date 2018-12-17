@@ -40,7 +40,7 @@ public final class Main {
                         logic.consultaInventari(jugador);
                         break;
                     case 4:
-                        logic.buscaPokemonSalvatge();
+                        logic.buscaPokemonSalvatge(json.getPoke(),json.getLegend(), json.getMythical(), jugador);
                         break;
                     case 5:
                        logic.ferRaid();
