@@ -9,8 +9,8 @@ public class Mythical {
     private ArrayList<Long> quantity;
 
     public Mythical() {
-        target = new ArrayList<>();
-        quantity = new ArrayList<>();
+        target = new ArrayList<Long>();
+        quantity = new ArrayList<Long>();
     }
 
     public Mythical(long id, String kind, String researchName, ArrayList<Long> target, ArrayList<Long> quantity) {

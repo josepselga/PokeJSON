@@ -33,8 +33,8 @@ public class LecturaFitxers {
 
     //Metodes
     public void llegeixFitxers() throws IOException, ParseException {
-        legend = new ArrayList<>();
-        mythical = new ArrayList<>();
+        legend = new ArrayList<Legend>();
+        mythical = new ArrayList<Mythical>();
         JSONParser parser = new JSONParser();
 
 

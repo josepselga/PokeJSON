@@ -94,7 +94,7 @@ public class Logica {
         for (int i = 0; i < jugador.getNumBalls().length; i++) {
 
             if (jugador.getNomBalls()[i] == choosedPokeball) {
-
+                return true;
             }
         }
     }
@@ -316,5 +316,5 @@ public class Logica {
 
 
         }
-    }
 }
+
