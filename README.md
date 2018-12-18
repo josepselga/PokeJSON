@@ -7,7 +7,8 @@ COSES A FER
 
 Cas 1: OK 
 
-Cas 4
+Cas 4: no funciona entrada de pokemon
+sistema de captura
 
 ---Josep Selga---
  

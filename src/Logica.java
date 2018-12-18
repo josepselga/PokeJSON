@@ -94,9 +94,10 @@ public class Logica {
         for (int i = 0; i < jugador.getNumBalls().length; i++) {
 
             if (jugador.getNomBalls()[i] == choosedPokeball) {
-                return true;
+                ok = true;
             }
         }
+        return ok;
     }
 
     public boolean checkPokeballs (Jugador jugador) {
@@ -266,10 +267,10 @@ public class Logica {
             String nom = " ";
 
             try {                                                                                                       //Ens poden introduir un ID int o un nom String.
-                id = entrada.nextInt();
+                id = entrada.nextLong();
             }catch (java.util.InputMismatchException e) {
-                nom = entrada.next();
-                id = nameToID(nom, poke);
+               nom = entrada.next();
+               id = nameToID(nom, poke);
             }
 
 
