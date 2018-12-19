@@ -17,18 +17,20 @@ public class Logica {
     public Logica() {
     }
 
+    //Funcio que converteix el nom d'un pokemon a id numeric
     public long nameToID(String name, Pokemon[] poke) {
         long ID = -1;
 
         for (int i = 0; i < poke.length; i++){
 
-            if (poke[i].getNom() == name){
+            if (poke[i].getNom().equals(name)){
                 ID = poke[i].getId();
             }
         }
         return ID;
     }
 
+    //Funcio que ens diu si el pokemon es mistic o no
     public boolean itsMythic (ArrayList<Mythical> mythicals, long id) {
 
         boolean flag = false;
@@ -43,6 +45,7 @@ public class Logica {
         return flag;
     }
 
+    //Funcio que ens diu si el pokemon es llegendari o no
     public boolean itsLegend (ArrayList<Legend> legends, long id) {
 
         boolean flag = false;
@@ -88,18 +91,20 @@ public class Logica {
 
 
     }
+
     public boolean correctPokeballName (Jugador jugador, String choosedPokeball) {
         boolean ok = false;
 
         for (int i = 0; i < jugador.getNumBalls().length; i++) {
 
-            if (jugador.getNomBalls()[i] == choosedPokeball) {
+            if (jugador.getNomBalls()[i].equals(choosedPokeball)) {
                 ok = true;
             }
         }
         return ok;
     }
 
+    //Funcio per saber si el jugador disposa de pokeballs
     public boolean checkPokeballs (Jugador jugador) {
 
         boolean pokeballs = false;
@@ -122,9 +127,9 @@ public class Logica {
         return total;
     }
 
-
     public void checkMissions (Jugador jugador, Pokemon[] poke, ArrayList<Mythical> mythicals){}
-    //Metodes de la clase
+
+    // OPCIO 1: afegir monedes al jugador
     public void afegeixMonedes(Jugador jugador) {
 
         double monedes = -1;
@@ -193,6 +198,7 @@ public class Logica {
 
     }
 
+    // OPCIO 2: comprar Pokeballs
     public void compraObjectes(Jugador jugador, Ball[] balls) {
         Scanner entrada = new Scanner(System.in);
 
@@ -236,6 +242,7 @@ public class Logica {
         }
     }
 
+    //OPCIO 3: consultar inventari del jugador
     public void consultaInventari(Jugador jugador) {
         System.out.println("Inventari:");
         for (int i = 0; i < jugador.getNomBalls().length; i++) {
@@ -253,6 +260,7 @@ public class Logica {
         }
     }
 
+    //OPCIO 4: buscar Pokemon salvatge
     public void buscaPokemonSalvatge(Pokemon[] poke, ArrayList<Legend> legends, ArrayList<Mythical> mythicals, Jugador jugador) {
 
         boolean trobat = true;
@@ -308,14 +316,16 @@ public class Logica {
 
     }
 
-        public void ferRaid () {
+    //OPCIO 5: fer raid per buscar llegendaris
+    public void ferRaid () {
 
-        }
+    }
 
-        public void recerquesEspecials (Jugador jugador, ArrayList < Mythical > mythicals){
-            System.out.println("Recerques Especials:");
+    //OPCIO 6: verure missions en proces
+    public void recerquesEspecials (Jugador jugador, ArrayList < Mythical > mythicals){
+        System.out.println("Recerques Especials:");
 
 
-        }
+    }
 }
 

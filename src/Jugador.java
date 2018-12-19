@@ -40,6 +40,12 @@ public class Jugador {
     public int[] getNumBalls() {
         return numBalls;
     }
+    public int[] getIdHunted() {
+        return idHunted;
+    }
+    public int[] getNumHunted() {
+        return numHunted;
+    }
 
     //Setters
     public void setMonedes(int monedes) {
