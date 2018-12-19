@@ -44,44 +44,35 @@ public class GenerarFitxers {
         //Accedir api //OPCIO 2
         // Connect to the URL using java's native library
         URL url = null;
-        try {
-            url = new URL("https://pokeapi.co/api/v2/pokemon/" + id);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
         URLConnection request = null;
         try {
+            url = new URL("https://pokeapi.co/api/v2/pokemon/" + id);
             request = url.openConnection();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
             request.connect();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        // Convert to a JSON object to print data
-        JsonParser jp = new JsonParser(); //from gson
-        JsonElement root = null; //Convert the input stream to a json element
-        try {
-            root = jp.parse(new InputStreamReader((InputStream) request.getContent()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        JsonObject pokeInfo = root.getAsJsonObject(); //May be an array, may be an object.
 
-        //Llegir json
-        nomPokemon = pokeInfo.get("name").toString(); //Guardem info
-        idPokemon = pokeInfo.get("id").getAsInt();
-        //description = ;
-        altura = pokeInfo.get("height").getAsInt();
-        pes = pokeInfo.get("weight").getAsInt();
-        exp = pokeInfo.get("base_experience").getAsInt();
-        System.out.println(nomPokemon);
-        System.out.println(idPokemon);
-        System.out.println(altura);
-        System.out.println(pes);
-        System.out.println(exp);
+            // Convert to a JSON object to print data
+            JsonParser jp = new JsonParser();       //from gson
+            JsonElement root = null;                //Convert the input stream to a json element
+            root = jp.parse(new InputStreamReader((InputStream) request.getContent()));
+
+            JsonObject pokeInfo = root.getAsJsonObject(); //May be an array, may be an object.
+
+            //Llegir json
+            nomPokemon = pokeInfo.get("name").toString(); //Guardem info
+            idPokemon = pokeInfo.get("id").getAsInt();
+            //description = ;
+            altura = pokeInfo.get("height").getAsInt();
+            pes = pokeInfo.get("weight").getAsInt();
+            exp = pokeInfo.get("base_experience").getAsInt();
+            System.out.println(nomPokemon);
+            System.out.println(idPokemon);
+            System.out.println(altura);
+            System.out.println(pes);
+            System.out.println(exp);
+
+        } catch (IOException e) {
+            System.out.println("ERROR!");
+        }
 
 
     /*//Generar fitxer html
