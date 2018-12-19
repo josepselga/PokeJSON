@@ -34,6 +34,16 @@ public class GenerarFitxers {
         return objecte;
     }
 
+    private boolean existeixPokemon(int id , int[] idsPokemons ){
+        for(int i = 0 ; i < idsPokemons.length ; i++){
+            if(idsPokemons[i] == id){
+                System.out.println("POKEMON existeix!");
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void informeCapturats(Jugador jugador){
         FileOutputStream pokemonsCapturats;
         PrintStream result;
@@ -70,6 +80,8 @@ public class GenerarFitxers {
                 result.println("<h1>No has capturat cap pokemon</h1>");
             }
             result.println("</body>" + "<html>");
+            System.out.println("Fitxer HTML generat");
+            //Obrim fitxer HTML
             URI uri = new URI("pokemonsCapturats.html");
             uri.normalize();
             Desktop.getDesktop().browse(uri);
@@ -81,36 +93,41 @@ public class GenerarFitxers {
 
     public void infoPokemon(){
         JsonObject pokeInfo;
-        String nomPokemon;
-        long idPokemon;
-        String description;
-        long altura;
-        long pes;
-        long exp;
+        JsonObject sprites;
+        JsonObject flavor_text_entries;
+        String name;
+        long id;
+        String image;
+        String description = "HOLAAA";
+        long height;
+        long weight;
+        long base_experience;
 
         //Demanem POkemon
         System.out.println("De quin Pokémon vols informació?");
-        Scanner id = new Scanner (System.in);
-        String nom = id.next();
+        Scanner teclat = new Scanner (System.in);
+        String nom = teclat.next();
 
         //Comprobar pokemon existeix
+        /*if(){
 
+        }else{
+            System.out.println("Ho sentim, però aquest Pokémon no existeix (encara).");
+        }*/
         try {
-            pokeInfo = consultaAPI("https://pokeapi.co/api/v2/pokemon-species/" + nom + "/");
             pokeInfo = consultaAPI("https://pokeapi.co/api/v2/pokemon/" + nom + "/");
+            name = pokeInfo.get("name").getAsString();
+            id = pokeInfo.get("id").getAsLong();
+            sprites = (JsonObject) pokeInfo.get("sprites");
+            image = sprites.get("front_shiny").getAsString();
+            height = pokeInfo.get("height").getAsLong();
+            weight= pokeInfo.get("weight").getAsLong();
+            base_experience = pokeInfo.get("base_experience").getAsLong();
 
-        //Llegim el JSON de la API
-            //nomPokemon = pokeInfo.get("name").toString(); //Guardem info
-            //idPokemon = pokeInfo.get("id").getAsInt();
-            //description = ;
-            altura = pokeInfo.get("height").getAsLong();
-            //pes = pokeInfo.get("weight").getAsInt();
-            //exp = pokeInfo.get("base_experience").getAsInt();
-            //System.out.println(nomPokemon);
-            //System.out.println(idPokemon);
-            System.out.println(altura);
-            //System.out.println(pes);
-            //System.out.println(exp);
+            //Llegim flavour text de pokemon-species
+            //pokeInfo = consultaAPI("https://pokeapi.co/api/v2/pokemon-species/" + nom + "/");
+            //flavor_text_entries = (JsonObject) pokeInfo.get("flavor_text_entries");
+
 
 
 
@@ -119,10 +136,16 @@ public class GenerarFitxers {
             PrintStream result;
             informePokemon = new FileOutputStream("infoPokemon.html");
             result = new PrintStream(informePokemon);
-            result.println("hola");
-            result.close();
+            result.println("<!DOCTYPE html>" + "<html>" + "<head>" + "<title>" + name + "</title>" + "<style>" + "body {" + "background-color: white;" + "text-align: left;" + "color: black;" + "font-family: Arial;" + "}" + "</style>" + "</head>" + "<body>");
+            result.println("<body>" + "<h1>" + name + " (" + id + ")</h1>" + "<p><img src=" + image + " alt=" + name + " style=\"width:300px\"></p>" + "<p>" + description + "</p>" + "<ul>\n" + "<li>" + (float)height/10 + " m</li>" + "<li>" + (float)weight/10 + " kg</li>" + "<li>" + base_experience + " xp</li>" + "</ul>");
+            result.println("</body>" + "<html>");
+            System.out.println("Fitxer HTML generat");
+            //Obrim fitxer HTML
+            URI uri = new URI("infoPokemon.html");
+            uri.normalize();
+            Desktop.getDesktop().browse(uri);
 
-        } catch (IOException e) {
+        } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }
 
