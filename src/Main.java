@@ -17,7 +17,7 @@ public final class Main {
             Menu menu = new Menu();
             LecturaFitxers json = new LecturaFitxers();
             json.llegeixFitxers();
-            Jugador jugador = new Jugador(json.getBalls(), (json.getPoke().length + json.getLegend().size() + json.getMythical().size()));
+            Jugador jugador = new Jugador(json.getPoke(), json.getBalls());
             Logica logic = new Logica();
             GenerarFitxers fitxers = new GenerarFitxers();
 

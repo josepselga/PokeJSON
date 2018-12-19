@@ -321,7 +321,7 @@ public class Logica {
 
     }
 
-    //OPCIO 6: verure missions en proces
+    //OPCIO 6: veure missions en progress
     public void recerquesEspecials (Jugador jugador, ArrayList < Mythical > mythicals){
         System.out.println("Recerques Especials:");
 

@@ -16,16 +16,18 @@ public class Jugador {
     private int[] numBalls;
 
     //Constructor
-    public Jugador(Ball[] ball, int numPokemons) {
-        this.monedes = 1000;
-        idHunted = new int[numPokemons];
-        numHunted = new int [numPokemons];
+    public Jugador(Pokemon poke[], Ball[] ball) {
+        monedes = 1000;
+        idHunted = new int[poke.length];
+        for(int i = 0 ; i < poke.length ; i++){
+           idHunted[i] = poke[i].getId();
+        }
+        numHunted = new int [poke.length];
         nomBalls = new String[ball.length];
-        for(int i = 1 ; i < ball.length ; i++){
+        for(int i = 0 ; i < ball.length ; i++){
             nomBalls[i] = ball[i].getName();
         }
         numBalls = new int[ball.length];
-        nomBalls[0] = ball[0].getName();
         numBalls[0] = 3;
     }
 
