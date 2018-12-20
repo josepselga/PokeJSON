@@ -18,6 +18,6 @@ Cas 2  -- comprobacio entrades
 
 Cas 3 -- OK
 
-Cas 7 
+Cas 7 -- OK
 
 Cas 8

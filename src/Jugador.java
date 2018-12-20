@@ -29,6 +29,10 @@ public class Jugador {
         }
         numBalls = new int[ball.length];
         numBalls[0] = 3;
+        numHunted[3] = 2;
+        numHunted[155] = 2;
+        numHunted[22] = 2;
+        numHunted[45] = 232;
     }
 
     //Metodes de la clase

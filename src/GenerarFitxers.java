@@ -10,6 +10,8 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.io.IOException;
 import java.util.Scanner;
+
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -79,7 +81,7 @@ public class GenerarFitxers {
             }else{
                 result.println("<h1>No has capturat cap pokemon</h1>");
             }
-            result.println("</body>" + "<html>");
+            result.println("<p><img src=http://i66.tinypic.com/cuvcg.jpg align=middle  alt=\"PokeJson\" style=\"width:90px\"></p></body>" + "<html>");
             System.out.println("Fitxer HTML generat");
             //Obrim fitxer HTML
             URI uri = new URI("pokemonsCapturats.html");
@@ -94,7 +96,7 @@ public class GenerarFitxers {
     public void infoPokemon(){
         JsonObject pokeInfo;
         JsonObject sprites;
-        JsonObject flavor_text_entries;
+        JsonArray flavor_text_entries;
         String name;
         long id;
         String image;
@@ -125,9 +127,14 @@ public class GenerarFitxers {
             base_experience = pokeInfo.get("base_experience").getAsLong();
 
             //Llegim flavour text de pokemon-species
-            //pokeInfo = consultaAPI("https://pokeapi.co/api/v2/pokemon-species/" + nom + "/");
-            //flavor_text_entries = (JsonObject) pokeInfo.get("flavor_text_entries");
-
+            pokeInfo = consultaAPI("https://pokeapi.co/api/v2/pokemon-species/" + nom + "/");
+            flavor_text_entries = (JsonArray) pokeInfo.get("flavor_text_entries");
+            for(int i = 0 ; i< flavor_text_entries.size() ; i++){
+                JsonObject language = (JsonObject) flavor_text_entries.get(i);
+                if(language.get("name").getAsString().equals("en")){
+                   // description = flavor_text_entries.get(i);
+                }
+            }
 
 
 
@@ -138,7 +145,7 @@ public class GenerarFitxers {
             result = new PrintStream(informePokemon);
             result.println("<!DOCTYPE html>" + "<html>" + "<head>" + "<title>" + name + "</title>" + "<style>" + "body {" + "background-color: white;" + "text-align: left;" + "color: black;" + "font-family: Arial;" + "}" + "</style>" + "</head>" + "<body>");
             result.println("<body>" + "<h1>" + name + " (" + id + ")</h1>" + "<p><img src=" + image + " alt=" + name + " style=\"width:300px\"></p>" + "<p>" + description + "</p>" + "<ul>\n" + "<li>" + (float)height/10 + " m</li>" + "<li>" + (float)weight/10 + " kg</li>" + "<li>" + base_experience + " xp</li>" + "</ul>");
-            result.println("</body>" + "<html>");
+            result.println("<p><img src=http://i66.tinypic.com/cuvcg.jpg align=middle  alt=\"PokeJson\" style=\"width:90px\"></p></body>" + "<html>");
             System.out.println("Fitxer HTML generat");
             //Obrim fitxer HTML
             URI uri = new URI("infoPokemon.html");
