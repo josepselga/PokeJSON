@@ -32,7 +32,7 @@ public class Jugador {
         numHunted[3] = 2;
         numHunted[155] = 2;
         numHunted[22] = 2;
-        numHunted[45] = 232;
+        numHunted[383] = 232;
     }
 
     //Metodes de la clase

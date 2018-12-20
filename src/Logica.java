@@ -79,7 +79,7 @@ public class Logica {
             while (intents > 0) {
 
                 do {
-                    System.out.println("Queden" + plusPokeballs(jugador) + " Pokéballs i " + intents + "/5 intents. Quin tipus de Pokéball vol fer servir?");
+                    System.out.println("Queden" + totalPokeballs(jugador) + " Pokéballs i " + intents + "/5 intents. Quin tipus de Pokéball vol fer servir?");
                     Scanner entrada = new Scanner(System.in);
                     choosedPokeball = entrada.next();
                 }while (correctPokeballName(jugador, choosedPokeball));
@@ -92,6 +92,7 @@ public class Logica {
 
     }
 
+    //comprobem si existeix una pokeball
     public boolean correctPokeballName (Jugador jugador, String choosedPokeball) {
         boolean ok = false;
 
@@ -118,7 +119,7 @@ public class Logica {
         return pokeballs;
     }
 
-    public int plusPokeballs (Jugador jugador){
+    private int totalPokeballs (Jugador jugador){
         int total = 0;
 
         for (int i = 0; i < jugador.getNumBalls().length; i++) {
@@ -265,7 +266,6 @@ public class Logica {
 
         boolean trobat = true;
 
-
         if (checkPokeballs (jugador)) {
 
             Scanner entrada = new Scanner(System.in);
@@ -280,8 +280,11 @@ public class Logica {
                nom = entrada.next();
                id = nameToID(nom, poke);
             }
+            //Comprovar si es num o string
 
+            //Si es String pasar a id
 
+            //Comprovar si existeix pokemon
             for (int i = 0; i < poke.length; i++) {
 
                 if (poke[i].getId() == id){
@@ -290,7 +293,7 @@ public class Logica {
 
                 }
             }
-
+            //Començem captura
             if (trobat){
 
                 if (!itsLegend(legends, id) && !itsMythic(mythicals, id)) {
