@@ -231,9 +231,9 @@ public class Logica {
         int cost = unitats * balls[opcio - 97].getPrice();
         if (cost <= jugador.getMonedes()) {
             if (unitats == 1) {
-                System.out.println("S'ha afegit " + unitats + " " + balls[opcio - 97].getName() + " al seu compte a canvi de " + balls[opcio - 97].getPrice() + " monedes.");
+                System.out.println("S'ha afegit " + unitats + " " + balls[opcio - 97].getName() + " al seu compte a canvi de " + balls[opcio - 97].getPrice() * unitats + " monedes.");
             } else {
-                System.out.println("S'han afegit " + unitats + " " + balls[opcio - 97].getName() + "s al seu compte a canvi de " + balls[opcio - 97].getPrice() + " monedes.");
+                System.out.println("S'han afegit " + unitats + " " + balls[opcio - 97].getName() + "s al seu compte a canvi de " + balls[opcio - 97].getPrice() * unitats + " monedes.");
             }
             //Afegir balls al jugador
             jugador.getNumBalls()[opcio - 97] += unitats;
