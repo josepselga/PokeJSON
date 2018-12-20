@@ -10,6 +10,8 @@ Cas 1: OK
 Cas 4: no funciona entrada de pokemon
 sistema de captura
 
+Cas 5:
+
 ---Josep Selga---
  
 Lecturafitxers  --  OK
@@ -19,6 +21,8 @@ Cas 2  -- comprobacio entrades
 Cas 3 -- OK
 
 Cas 7 -- OK
+
+Cas 6 -- comprobar si cal mostrar una missio(showMission()), error en un index (long -> int)
 
 Cas 8 -- OK
 
