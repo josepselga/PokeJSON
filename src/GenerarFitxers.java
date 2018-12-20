@@ -92,7 +92,6 @@ public class GenerarFitxers {
         }
     }
 
-
     public void infoPokemon(){
         JsonObject pokeInfo;
         JsonObject sprites;

@@ -128,6 +128,11 @@ public class Logica {
         return total;
     }
 
+    //Funcio que ens diu si cal mostrar una missio o no (si esta començada)
+    private boolean showMission(Jugador jugador, ArrayList<Mythical> mythicals){
+
+    }
+
     public void checkMissions (Jugador jugador, Pokemon[] poke, ArrayList<Mythical> mythicals){}
 
     // OPCIO 1: afegir monedes al jugador
@@ -325,10 +330,19 @@ public class Logica {
     }
 
     //OPCIO 6: veure missions en progress
-    public void recerquesEspecials (Jugador jugador, ArrayList < Mythical > mythicals){
+    public void recerquesEspecials (Jugador jugador, ArrayList <Mythical> mythicals){
         System.out.println("Recerques Especials:");
-
-
+        System.out.println(" ");
+        for(int i = 0 ; i < mythicals.size() ; i++){
+            if(showMission(jugador, mythicals)){
+                System.out.println("    - " + mythicals.get(i).getResearchName() + "(" + mythicals.get(i).getId() + "):");
+                for(int j = 0 ; j < mythicals.get(i).getTarget().size() ; j++){
+                    int capturats = jugador.getNumHunted()[mythicals.get(i).getTarget().get(j)];
+                    System.out.println("        * Capturar" + mythicals.get(i).getTarget().get(i) + ": " + capturats + "/" + mythicals.get(i).getQuantity().get(j) + " (" + (capturats/mythicals.get(i).getQuantity().get(j))*100 + "%)");
+                }
+            }
+            System.out.println(" ");
+        }
     }
 }
 
