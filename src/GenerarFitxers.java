@@ -100,7 +100,7 @@ public class GenerarFitxers {
         String name;
         long id;
         String image;
-        String description = "HOLAAA";
+        String description = null;
         long height;
         long weight;
         long base_experience;
@@ -130,9 +130,10 @@ public class GenerarFitxers {
             pokeInfo = consultaAPI("https://pokeapi.co/api/v2/pokemon-species/" + nom + "/");
             flavor_text_entries = (JsonArray) pokeInfo.get("flavor_text_entries");
             for(int i = 0 ; i< flavor_text_entries.size() ; i++){
-                JsonObject language = (JsonObject) flavor_text_entries.get(i);
+                JsonObject flavor_text = (JsonObject) flavor_text_entries.get(i);
+                JsonObject language = (JsonObject) flavor_text.get("language");
                 if(language.get("name").getAsString().equals("en")){
-                   // description = flavor_text_entries.get(i);
+                    description = flavor_text.get("flavor_text").getAsString();
                 }
             }
 
