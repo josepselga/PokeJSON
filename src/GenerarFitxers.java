@@ -71,10 +71,11 @@ public class GenerarFitxers {
                     if(jugador.getNumHunted()[i] > 0){
                         pokeInfo = consultaAPI("https://pokeapi.co/api/v2/pokemon/" + jugador.getIdHunted()[i] + "/");
                         name = pokeInfo.get("name").getAsString();
+                        String nameCap = name.substring(0, 1).toUpperCase() + name.substring(1);
                         sprites = (JsonObject) pokeInfo.get("sprites");
                         image = sprites.get("front_shiny").getAsString();
                         numHunted = jugador.getNumHunted()[i];
-                        result.println("<p><img src=" + image + " align=middle alt=" + name + "/><b>  " + name +"</b> x" + jugador.getNumHunted()[i] + "</p>");
+                        result.println("<p><img src=" + image + " align=middle alt=IMG err/><b>  " + nameCap +"</b> x" + numHunted + "</p>");
                     }
                 }
 
@@ -118,6 +119,7 @@ public class GenerarFitxers {
         try {
             pokeInfo = consultaAPI("https://pokeapi.co/api/v2/pokemon/" + nom + "/");
             name = pokeInfo.get("name").getAsString();
+            String nameCap = name.substring(0, 1).toUpperCase() + name.substring(1);
             id = pokeInfo.get("id").getAsLong();
             sprites = (JsonObject) pokeInfo.get("sprites");
             image = sprites.get("front_shiny").getAsString();
@@ -143,8 +145,8 @@ public class GenerarFitxers {
             PrintStream result;
             informePokemon = new FileOutputStream("infoPokemon.html");
             result = new PrintStream(informePokemon);
-            result.println("<!DOCTYPE html>" + "<html>" + "<head>" + "<title>" + name + "</title>" + "<style>" + "body {" + "background-color: white;" + "text-align: left;" + "color: black;" + "font-family: Arial;" + "}" + "</style>" + "</head>" + "<body>");
-            result.println("<body>" + "<h1>" + name + " (" + id + ")</h1>" + "<p><img src=" + image + " alt=" + name + " style=\"width:300px\"></p>" + "<p>" + description + "</p>" + "<ul>\n" + "<li>" + (float)height/10 + " m</li>" + "<li>" + (float)weight/10 + " kg</li>" + "<li>" + base_experience + " xp</li>" + "</ul>");
+            result.println("<!DOCTYPE html>" + "<html>" + "<head>" + "<title>" + nameCap + "</title>" + "<style>" + "body {" + "background-color: white;" + "text-align: left;" + "color: black;" + "font-family: Arial;" + "}" + "</style>" + "</head>" + "<body>");
+            result.println("<body>" + "<h1>" + nameCap + " (" + id + ")</h1>" + "<p><img src=" + image + " alt= IMG err style=\"width:300px\"></p>" + "<p>" + description + "</p>" + "<ul>\n" + "<li>" + (float)height/10 + " m</li>" + "<li>" + (float)weight/10 + " kg</li>" + "<li>" + base_experience + " xp</li>" + "</ul>");
             result.println("<p><img src=http://i66.tinypic.com/cuvcg.jpg align=middle  alt=\"PokeJson\" style=\"width:90px\"></p></body>" + "<html>");
             System.out.println("Fitxer HTML generat");
             //Obrim fitxer HTML

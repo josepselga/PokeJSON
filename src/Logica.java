@@ -130,7 +130,7 @@ public class Logica {
 
     //Funcio que ens diu si cal mostrar una missio o no (si esta començada)
     private boolean showMission(Jugador jugador, ArrayList<Mythical> mythicals){
-
+        return true;
     }
 
     public void checkMissions (Jugador jugador, Pokemon[] poke, ArrayList<Mythical> mythicals){}
@@ -212,7 +212,9 @@ public class Logica {
         System.out.println("Pokéballs disponibles:");
         int i;
         for (i = 0; i < balls.length; i++) {
-            System.out.println("   " + (char) (97 + i) + ")" + balls[i].getName() + ":    " + balls[i].getPrice() + " monedes");
+            String name = balls[i].getName();
+            String nameCap = name.substring(0, 1).toUpperCase() + name.substring(1);
+            System.out.println("   " + (char) (97 + i) + ")" + nameCap + ":    " + balls[i].getPrice() + " monedes");
         }
         System.out.println(" ");
         System.out.println("   " + (char) (97 + i) + ") Sortir sense comprar");
@@ -252,11 +254,13 @@ public class Logica {
     public void consultaInventari(Jugador jugador) {
         System.out.println("Inventari:");
         for (int i = 0; i < jugador.getNomBalls().length; i++) {
+            String name = jugador.getNomBalls()[i];
+            String nameCap = name.substring(0, 1).toUpperCase() + name.substring(1);
             if (jugador.getNumBalls()[i] != 0) {
                 if (jugador.getNumBalls()[i] > 1) {
-                    System.out.println("   - " + jugador.getNumBalls()[i] + "x " + jugador.getNomBalls()[i] + "s");
+                    System.out.println("   - " + jugador.getNumBalls()[i] + "x " + nameCap + "s");
                 } else {
-                    System.out.println("   - " + jugador.getNumBalls()[i] + "x " + jugador.getNomBalls()[i]);
+                    System.out.println("   - " + jugador.getNumBalls()[i] + "x " + nameCap);
                 }
             } else {
                 if (i == 0) {
@@ -337,8 +341,8 @@ public class Logica {
             if(showMission(jugador, mythicals)){
                 System.out.println("    - " + mythicals.get(i).getResearchName() + "(" + mythicals.get(i).getId() + "):");
                 for(int j = 0 ; j < mythicals.get(i).getTarget().size() ; j++){
-                    int capturats = jugador.getNumHunted()[mythicals.get(i).getTarget().get(j)];
-                    System.out.println("        * Capturar" + mythicals.get(i).getTarget().get(i) + ": " + capturats + "/" + mythicals.get(i).getQuantity().get(j) + " (" + (capturats/mythicals.get(i).getQuantity().get(j))*100 + "%)");
+                    //int capturats = jugador.getNumHunted()[mythicals.get(i).getTarget().get(j)];
+                    //System.out.println("        * Capturar" + mythicals.get(i).getTarget().get(i) + ": " + capturats + "/" + mythicals.get(i).getQuantity().get(j) + " (" + (capturats/mythicals.get(i).getQuantity().get(j))*100 + "%)");
                 }
             }
             System.out.println(" ");
