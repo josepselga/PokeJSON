@@ -72,6 +72,7 @@ public class Logica {
         return flag;
     }
 
+    //Proces que du a terme la captura d'un Pokemon
     public void initiateCapture (Jugador jugador, Pokemon[] poke, long id){
 
         int j = 0;

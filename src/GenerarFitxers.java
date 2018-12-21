@@ -18,6 +18,17 @@ import com.google.gson.JsonParser;
 import org.json.simple.JSONObject;
 
 public class GenerarFitxers {
+    //Funcio que converteix el nom d'un pokemon a id numeric
+    private long nameToID(String name, Pokemon[] poke) {
+        long id = -1;
+
+        for (int i = 0; i < poke.length; i++){
+            if (poke[i].getNom().equalsIgnoreCase(name)){
+                id = poke[i].getId();
+            }
+        }
+        return id;
+    }
 
     private JsonObject consultaAPI(String sURL) throws IOException {
         // Connect to the URL using java's native library
@@ -36,10 +47,9 @@ public class GenerarFitxers {
         return objecte;
     }
 
-    private boolean existeixPokemon(int id , int[] idsPokemons ){
-        for(int i = 0 ; i < idsPokemons.length ; i++){
-            if(idsPokemons[i] == id){
-                System.out.println("POKEMON existeix!");
+    private boolean existeixPokemon(Long id , Pokemon[] poke){
+        for(int i = 0 ; i < poke.length ; i++){
+            if(poke[i].getId().equals(id)){
                 return true;
             }
         }
@@ -93,7 +103,7 @@ public class GenerarFitxers {
         }
     }
 
-    public void infoPokemon(){
+    public void infoPokemon(Pokemon[] poke){
         JsonObject pokeInfo;
         JsonObject sprites;
         JsonArray flavor_text_entries;
@@ -105,59 +115,67 @@ public class GenerarFitxers {
         long weight;
         long base_experience;
 
-        //Demanem POkemon
+        //Demanem Pokemon
         System.out.println("De quin Pokémon vols informació?");
         Scanner teclat = new Scanner (System.in);
-        String nom = teclat.next();
+        String input = teclat.next();
+        Long nom;
+        Boolean exists;
 
-        //Comprobar pokemon existeix
-        /*if(){
+        try{
+            int num = Integer.parseInt(input);
+            exists = existeixPokemon((long)num, poke);
+            nom = (long)num;
 
-        }else{
-            System.out.println("Ho sentim, però aquest Pokémon no existeix (encara).");
-        }*/
-        try {
-            pokeInfo = consultaAPI("https://pokeapi.co/api/v2/pokemon/" + nom + "/");
-            name = pokeInfo.get("name").getAsString();
-            String nameCap = name.substring(0, 1).toUpperCase() + name.substring(1);
-            id = pokeInfo.get("id").getAsLong();
-            sprites = (JsonObject) pokeInfo.get("sprites");
-            image = sprites.get("front_shiny").getAsString();
-            height = pokeInfo.get("height").getAsLong();
-            weight= pokeInfo.get("weight").getAsLong();
-            base_experience = pokeInfo.get("base_experience").getAsLong();
-
-            //Llegim flavour text de pokemon-species
-            pokeInfo = consultaAPI("https://pokeapi.co/api/v2/pokemon-species/" + nom + "/");
-            flavor_text_entries = (JsonArray) pokeInfo.get("flavor_text_entries");
-            for(int i = 0 ; i< flavor_text_entries.size() ; i++){
-                JsonObject flavor_text = (JsonObject) flavor_text_entries.get(i);
-                JsonObject language = (JsonObject) flavor_text.get("language");
-                if(language.get("name").getAsString().equals("en")){
-                    description = flavor_text.get("flavor_text").getAsString();
-                }
-            }
-
-
-
-            //Generar fitxer html
-            FileOutputStream informePokemon;
-            PrintStream result;
-            informePokemon = new FileOutputStream("infoPokemon.html");
-            result = new PrintStream(informePokemon);
-            result.println("<!DOCTYPE html>" + "<html>" + "<head>" + "<title>" + nameCap + "</title>" + "<style>" + "body {" + "background-color: white;" + "text-align: left;" + "color: black;" + "font-family: Arial;" + "}" + "</style>" + "</head>" + "<body>");
-            result.println("<body>" + "<h1>" + nameCap + " (" + id + ")</h1>" + "<p><img src=" + image + " alt= IMG err style=\"width:300px\"></p>" + "<p>" + description + "</p>" + "<ul>\n" + "<li>" + (float)height/10 + " m</li>" + "<li>" + (float)weight/10 + " kg</li>" + "<li>" + base_experience + " xp</li>" + "</ul>");
-            result.println("<p><img src=http://i66.tinypic.com/cuvcg.jpg align=middle  alt=\"PokeJson\" style=\"width:90px\"></p></body>" + "<html>");
-            System.out.println("Fitxer HTML generat");
-            //Obrim fitxer HTML
-            URI uri = new URI("infoPokemon.html");
-            uri.normalize();
-            Desktop.getDesktop().browse(uri);
-
-        } catch (IOException | URISyntaxException e) {
-            e.printStackTrace();
+        }catch(NumberFormatException e){            //Si no es el nom del pokemon, ho pasem a id
+            nom = nameToID(input, poke);
+            exists = existeixPokemon(nom, poke);
         }
 
+        //Comprobar pokemon existeix
+        if(exists){
+            try {
+                pokeInfo = consultaAPI("https://pokeapi.co/api/v2/pokemon/" + nom + "/");
+                name = pokeInfo.get("name").getAsString();
+                String nameCap = name.substring(0, 1).toUpperCase() + name.substring(1);
+                id = pokeInfo.get("id").getAsLong();
+                sprites = (JsonObject) pokeInfo.get("sprites");
+                image = sprites.get("front_shiny").getAsString();
+                height = pokeInfo.get("height").getAsLong();
+                weight= pokeInfo.get("weight").getAsLong();
+                base_experience = pokeInfo.get("base_experience").getAsLong();
+
+                //Llegim flavour text de pokemon-species
+                pokeInfo = consultaAPI("https://pokeapi.co/api/v2/pokemon-species/" + nom + "/");
+                flavor_text_entries = (JsonArray) pokeInfo.get("flavor_text_entries");
+                for(int i = 0 ; i< flavor_text_entries.size() ; i++){
+                    JsonObject flavor_text = (JsonObject) flavor_text_entries.get(i);
+                    JsonObject language = (JsonObject) flavor_text.get("language");
+                    if(language.get("name").getAsString().equals("en")){
+                        description = flavor_text.get("flavor_text").getAsString();
+                    }
+                }
+
+                //Generar fitxer html
+                FileOutputStream informePokemon;
+                PrintStream result;
+                informePokemon = new FileOutputStream("infoPokemon.html");
+                result = new PrintStream(informePokemon);
+                result.println("<!DOCTYPE html>" + "<html>" + "<head>" + "<title>" + nameCap + "</title>" + "<style>" + "body {" + "background-color: white;" + "text-align: left;" + "color: black;" + "font-family: Arial;" + "}" + "</style>" + "</head>" + "<body>");
+                result.println("<body>" + "<h1>" + nameCap + " (" + id + ")</h1>" + "<p><img src=" + image + " alt= IMG err style=\"width:300px\"></p>" + "<p>" + description + "</p>" + "<ul>\n" + "<li>" + (float)height/10 + " m</li>" + "<li>" + (float)weight/10 + " kg</li>" + "<li>" + base_experience + " xp</li>" + "</ul>");
+                result.println("<p><img src=http://i66.tinypic.com/cuvcg.jpg align=middle  alt=\"PokeJson\" style=\"width:90px\"></p></body>" + "<html>");
+                System.out.println("Fitxer HTML generat");
+                //Obrim fitxer HTML si tenim windows
+                URI uri = new URI("infoPokemon.html");
+                uri.normalize();
+                Desktop.getDesktop().browse(uri);
+
+            } catch (IOException | URISyntaxException e) {
+                System.out.println(" Ja pots obrir el fitxer HTML");
+            }
+        }else{
+            System.out.println("Ho sentim, però aquest Pokémon no existeix (encara).");
+        }
     }
 
 }
