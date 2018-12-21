@@ -60,7 +60,7 @@ public class Mythical {
         this.target.add(target);
     }
     public void addQuantity(Long quantity){
-        this.target.add(quantity);
+        this.quantity.add(quantity);
     }
 
 }

@@ -46,7 +46,7 @@ public final class Main {
                        logic.ferRaid();
                         break;
                     case 6:
-                        logic.recerquesEspecials(jugador, json.getMythical());
+                        logic.recerquesEspecials(jugador, json.getMythical(), json.getPoke());
                         break;
                     case 7:
                         fitxers.informeCapturats(jugador);

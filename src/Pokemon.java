@@ -8,23 +8,23 @@
 public class Pokemon {
 
     //Atributs de la clase
-    private int id;
-    private String nom;
+    private Long id;
+    private String name;
     private int capture_rate;
 
     //Metodes de la clase
-    public Pokemon(int id, String nom, int capture_rate) {
+    public Pokemon(Long id, String nom, int capture_rate) {
         this.id = id;
-        this.nom = nom;
+        this.name = nom;
         this.capture_rate = capture_rate;
     }
 
     //Getters
-    public int getId() {
+    public Long getId() {
         return id;
     }
     public String getNom() {
-        return nom;
+        return name;
     }
     public int getCaptureRate() {
         return capture_rate;

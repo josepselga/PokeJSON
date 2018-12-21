@@ -20,9 +20,9 @@ Cas 2  -- comprobacio entrades
 
 Cas 3 -- OK
 
-Cas 7 -- OK
+Cas 6 -- OK
 
-Cas 6 -- comprobar si cal mostrar una missio(showMission()), error en un index (long -> int)
+Cas 7 -- OK
 
 Cas 8 -- OK
 

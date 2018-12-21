@@ -18,16 +18,28 @@ public class Logica {
     }
 
     //Funcio que converteix el nom d'un pokemon a id numeric
-    public long nameToID(String name, Pokemon[] poke) {
-        long ID = -1;
+    private long nameToID(String name, Pokemon[] poke) {
+        long id = -1;
 
         for (int i = 0; i < poke.length; i++){
-
             if (poke[i].getNom().equals(name)){
-                ID = poke[i].getId();
+                id = poke[i].getId();
             }
         }
-        return ID;
+        return id;
+    }
+
+    //Funcio que converteix l'id d'un pokemon al seu nom
+    private String idToName(Long id, Pokemon[] poke){
+        String name;
+        String nameCap = null;
+        for (int i = 0; i < poke.length; i++){
+            if (poke[i].getId().equals(id)){
+                name = poke[i].getNom();
+                nameCap = name.substring(0, 1).toUpperCase() + name.substring(1);
+            }
+        }
+        return nameCap;
     }
 
     //Funcio que ens diu si el pokemon es mistic o no
@@ -129,10 +141,41 @@ public class Logica {
     }
 
     //Funcio que ens diu si cal mostrar una missio o no (si esta començada)
-    private boolean showMission(Jugador jugador, ArrayList<Mythical> mythicals){
-        return true;
+    private boolean showMission(Jugador jugador, ArrayList<Mythical> mythicals, int i){
+        boolean completed = false;
+        boolean started = false;
+        //Comprobem que la missio estigui començada
+        for(int j = 0 ; j < mythicals.get(i).getTarget().size() ; j++){
+            long idl = mythicals.get(i).getTarget().get(j);
+            int idi = (int) idl;
+            if(jugador.getNumHunted()[idi-1] > 0){
+                started = true;
+                if(jugador.getNumHunted()[idi-1] == mythicals.get(i).getQuantity().get(j)){
+                    completed = true;
+                }
+            }
+            if(completed && jugador.getNumHunted()[idi-1] >= mythicals.get(i).getQuantity().get(j)){
+                completed = true;
+            }else{
+                completed = false;
+            }
+        }
+        if(started && !completed){
+            return true;
+        }else{
+            return false;
+        }
     }
 
+    private boolean hihaMissions(Jugador jugador, ArrayList<Mythical> mythicals){
+
+        for(int i = 0 ; i < mythicals.size() ; i++){
+            if(showMission(jugador, mythicals, i)){
+                return true;
+            }
+        }
+        return false;
+    }
     public void checkMissions (Jugador jugador, Pokemon[] poke, ArrayList<Mythical> mythicals){}
 
     // OPCIO 1: afegir monedes al jugador
@@ -334,18 +377,26 @@ public class Logica {
     }
 
     //OPCIO 6: veure missions en progress
-    public void recerquesEspecials (Jugador jugador, ArrayList <Mythical> mythicals){
-        System.out.println("Recerques Especials:");
-        System.out.println(" ");
-        for(int i = 0 ; i < mythicals.size() ; i++){
-            if(showMission(jugador, mythicals)){
-                System.out.println("    - " + mythicals.get(i).getResearchName() + "(" + mythicals.get(i).getId() + "):");
-                for(int j = 0 ; j < mythicals.get(i).getTarget().size() ; j++){
-                    //int capturats = jugador.getNumHunted()[mythicals.get(i).getTarget().get(j)];
-                    //System.out.println("        * Capturar" + mythicals.get(i).getTarget().get(i) + ": " + capturats + "/" + mythicals.get(i).getQuantity().get(j) + " (" + (capturats/mythicals.get(i).getQuantity().get(j))*100 + "%)");
+    public void recerquesEspecials (Jugador jugador, ArrayList <Mythical> mythicals, Pokemon[] poke){
+        if(hihaMissions(jugador, mythicals)){
+            System.out.println("Recerques Especials:");
+            System.out.println(" ");
+            for(int i = 0 ; i < mythicals.size() ; i++){
+                if(showMission(jugador, mythicals, i)){
+                    String name = idToName(mythicals.get(i).getId(), poke);
+                    System.out.println("    - " + mythicals.get(i).getResearchName() + " (" + name + "):");
+                    for(int j = 0 ; j < mythicals.get(i).getTarget().size() ; j++){
+                        long idl = mythicals.get(i).getTarget().get(j);
+                        int idi = (int)idl;
+                        float capturats = jugador.getNumHunted()[(idi)-1];
+                        float progress = (capturats / (float)mythicals.get(i).getQuantity().get(j)) * 100;
+                        System.out.println("        * Capturar  " + idToName(mythicals.get(i).getTarget().get(j), poke) + ": " + (int)capturats + "/" + mythicals.get(i).getQuantity().get(j) + " (" + (int)progress + "%)");
+                    }
+                    System.out.println(" ");
                 }
             }
-            System.out.println(" ");
+        }else{
+            System.out.println("No hi han missions començades!");
         }
     }
 }

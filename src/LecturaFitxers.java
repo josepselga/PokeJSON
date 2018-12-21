@@ -49,37 +49,32 @@ public class LecturaFitxers {
         poke = gson.fromJson(json2, Pokemon[].class);
 
         //Llegir legends
-        JSONObject superPoke;
-        JSONObject superGym;
-        JSONObject superLocation;
-        JSONObject superResearch;
-        JSONArray superQuest;
-        Legend auxLegend = new Legend();
-        Mythical auxMythical = new Mythical();
-
         for(int i = 0 ; i < json3.size() ; i++){
-            superPoke = (JSONObject) json3.get(i);
+            JSONObject superPoke = (JSONObject) json3.get(i);
 
             if(superPoke.get("kind").equals("legendary")){
+                Legend auxLegend = new Legend();
                 auxLegend.setId((long)superPoke.get("id"));
                 auxLegend.setKind((String) superPoke.get("kind"));
                 //Info gym
-                superGym = (JSONObject) superPoke.get("gym");
+                JSONObject superGym = (JSONObject) superPoke.get("gym");
                 auxLegend.setGymName((String)superGym.get("name"));
-                superLocation = (JSONObject) superGym.get("location");
+                JSONObject superLocation = (JSONObject) superGym.get("location");
                 auxLegend.setLongitude((double)superLocation.get("longitude"));
                 auxLegend.setLatitude((double)superLocation.get("latitude"));
                 legend.add(auxLegend);
             }else{
+                Mythical auxMythical = new Mythical();
                 auxMythical.setId((long)superPoke.get("id"));
                 auxMythical.setKind((String) superPoke.get("kind"));
                 //info research
-                superResearch = (JSONObject) superPoke.get("special_research");
+                JSONObject superResearch = (JSONObject) superPoke.get("special_research");
                 auxMythical.setResearchName((String)superResearch.get("name"));
-                superQuest = (JSONArray) superResearch.get("quests");
+                JSONArray superQuest = (JSONArray) superResearch.get("quests");
                 for(int j = 0 ; j < superQuest.size() ; j++){
-                    auxMythical.addTarget((Long)superResearch.get("target"));
-                    auxMythical.addQuantity((Long)superResearch.get("quantity"));
+                    JSONObject auxMission = (JSONObject) superQuest.get(j);
+                    auxMythical.addTarget((Long) auxMission.get("target"));
+                    auxMythical.addQuantity((Long) auxMission.get("quantity"));
                 }
                 mythical.add(auxMythical);
             }
