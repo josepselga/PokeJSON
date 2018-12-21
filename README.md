@@ -5,16 +5,18 @@ COSES A FER
 
 ---Josep Lluís---
 
-Cas 1: OK 
+Cas 1 -- OK 
 
-Cas 4: no funciona entrada de pokemon
+Cas 4 -- no funciona entrada de pokemon
 sistema de captura
 
-Cas 5:
+Cas 5 --
 
 ---Josep Selga---
  
 Lecturafitxers  --  OK
+
+GenerarFitxers -- OK
 
 Cas 2  -- OK
 
