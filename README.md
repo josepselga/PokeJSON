@@ -16,7 +16,7 @@ Cas 5:
  
 Lecturafitxers  --  OK
 
-Cas 2  -- comprobacio entrades
+Cas 2  -- OK
 
 Cas 3 -- OK
 

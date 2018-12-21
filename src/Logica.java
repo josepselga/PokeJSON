@@ -131,6 +131,7 @@ public class Logica {
         return pokeballs;
     }
 
+    //Funcio que calcula el total de pokeballs que disposa el jugador
     private int totalPokeballs (Jugador jugador){
         int total = 0;
 
@@ -167,6 +168,7 @@ public class Logica {
         }
     }
 
+    //Funcio que comproba si hi ha missions començades
     private boolean hihaMissions(Jugador jugador, ArrayList<Mythical> mythicals){
 
         for(int i = 0 ; i < mythicals.size() ; i++){
@@ -176,6 +178,7 @@ public class Logica {
         }
         return false;
     }
+
     public void checkMissions (Jugador jugador, Pokemon[] poke, ArrayList<Mythical> mythicals){}
 
     // OPCIO 1: afegir monedes al jugador
@@ -250,7 +253,6 @@ public class Logica {
     // OPCIO 2: comprar Pokeballs
     public void compraObjectes(Jugador jugador, Ball[] balls) {
         Scanner entrada = new Scanner(System.in);
-
         System.out.println("Teniu " + jugador.getMonedes() + " monedes.");
         System.out.println("Pokéballs disponibles:");
         int i;
@@ -274,22 +276,29 @@ public class Logica {
         } while (opcio > (97 + i) || opcio < 97);
 
         System.out.println("Quantes unitats en vol comprar?");
-        int unitats = entrada.nextInt();
-        //Comprobar numero enter
-
-        //Comprobar saldo suficient
-        int cost = unitats * balls[opcio - 97].getPrice();
-        if (cost <= jugador.getMonedes()) {
-            if (unitats == 1) {
-                System.out.println("S'ha afegit " + unitats + " " + balls[opcio - 97].getName() + " al seu compte a canvi de " + balls[opcio - 97].getPrice() * unitats + " monedes.");
-            } else {
-                System.out.println("S'han afegit " + unitats + " " + balls[opcio - 97].getName() + "s al seu compte a canvi de " + balls[opcio - 97].getPrice() * unitats + " monedes.");
+        try{
+            int unitats = entrada.nextInt();
+            //Comprobar numero enter
+            if(unitats > 0){
+                //Comprobar saldo suficient
+                int cost = unitats * balls[opcio - 97].getPrice();
+                if (cost <= jugador.getMonedes()) {
+                    if (unitats == 1) {
+                        System.out.println("S'ha afegit " + unitats + " " + balls[opcio - 97].getName() + " al seu compte a canvi de " + balls[opcio - 97].getPrice() * unitats + " monedes.");
+                    } else {
+                        System.out.println("S'han afegit " + unitats + " " + balls[opcio - 97].getName() + "s al seu compte a canvi de " + balls[opcio - 97].getPrice() * unitats + " monedes.");
+                    }
+                    //Afegir balls al jugador
+                    jugador.getNumBalls()[opcio - 97] += unitats;
+                    jugador.setMonedes(jugador.getMonedes() - cost);
+                } else {
+                    System.out.println("Ho sentim, però no disposa de suficients monedes.");
+                }
+            }else{
+                System.out.println("Error, has d'introduir un nombre positiu");
             }
-            //Afegir balls al jugador
-            jugador.getNumBalls()[opcio - 97] += unitats;
-            jugador.setMonedes(jugador.getMonedes() - cost);
-        } else {
-            System.out.println("Ho sentim, però no disposa de suficients monedes.");
+        }catch (java.util.InputMismatchException e){
+            System.out.println("Error, has d'introduir un nombre!");
         }
     }
 
