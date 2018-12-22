@@ -148,14 +148,14 @@ public class Logica {
         System.out.println("De quin Pokémon vols informació?");
         Scanner teclat = new Scanner (System.in);
         String input = teclat.next();
-        Long id;
+        long id;
 
         try{
             int num = Integer.parseInt(input);
             id = (long)num;
             return id;
-        }catch(NumberFormatException e){            //Si no es el nom del pokemon, ho pasem a id
-            id = nameToID(input, poke);
+        }catch(NumberFormatException e){            //Si ha introduit el nom del pokemon, ho pasem a id
+            id = nameToID(input.toLowerCase(), poke);
             return id;
         }
     }
@@ -304,30 +304,34 @@ public class Logica {
             }
         } while (opcio > (97 + i) || opcio < 97);
 
-        System.out.println("Quantes unitats en vol comprar?");
-        try{
-            int unitats = entrada.nextInt();
-            //Comprobar numero enter
-            if(unitats > 0){
-                //Comprobar saldo suficient
-                int cost = unitats * balls[opcio - 97].getPrice();
-                if (cost <= jugador.getMonedes()) {
-                    if (unitats == 1) {
-                        System.out.println("S'ha afegit " + unitats + " " + balls[opcio - 97].getName() + " al seu compte a canvi de " + balls[opcio - 97].getPrice() * unitats + " monedes.");
+        if(opcio != (97+i)){
+            System.out.println("Quantes unitats en vol comprar?");
+            try{
+                int unitats = entrada.nextInt();
+                //Comprobar numero enter
+                if(unitats > 0){
+                    //Comprobar saldo suficient
+                    int cost = unitats * balls[opcio - 97].getPrice();
+                    if (cost <= jugador.getMonedes()) {
+                        if (unitats == 1) {
+                            System.out.println("S'ha afegit " + unitats + " " + balls[opcio - 97].getName() + " al seu compte a canvi de " + balls[opcio - 97].getPrice() * unitats + " monedes.");
+                        } else {
+                            System.out.println("S'han afegit " + unitats + " " + balls[opcio - 97].getName() + "s al seu compte a canvi de " + balls[opcio - 97].getPrice() * unitats + " monedes.");
+                        }
+                        //Afegir balls al jugador
+                        jugador.getNumBalls()[opcio - 97] += unitats;
+                        jugador.setMonedes(jugador.getMonedes() - cost);
                     } else {
-                        System.out.println("S'han afegit " + unitats + " " + balls[opcio - 97].getName() + "s al seu compte a canvi de " + balls[opcio - 97].getPrice() * unitats + " monedes.");
+                        System.out.println("Ho sentim, però no disposa de suficients monedes.");
                     }
-                    //Afegir balls al jugador
-                    jugador.getNumBalls()[opcio - 97] += unitats;
-                    jugador.setMonedes(jugador.getMonedes() - cost);
-                } else {
-                    System.out.println("Ho sentim, però no disposa de suficients monedes.");
+                }else{
+                    System.out.println("Error, has d'introduir un nombre positiu");
                 }
-            }else{
-                System.out.println("Error, has d'introduir un nombre positiu");
+            }catch (java.util.InputMismatchException e){
+                System.out.println("Error, has d'introduir un nombre!");
             }
-        }catch (java.util.InputMismatchException e){
-            System.out.println("Error, has d'introduir un nombre!");
+        }else{
+            System.out.println("Sortint de la botiga...");
         }
     }
 

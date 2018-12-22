@@ -14,7 +14,7 @@ Cas 5 --
 
 ---Josep Selga---
  
- *Arreglar entrada pokemons per usuari
+ *Arreglar entrada pokemons per usuari --- ARREGLAOO
  
 Lecturafitxers  --  OK
 
