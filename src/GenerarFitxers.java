@@ -9,8 +9,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.io.IOException;
-import java.util.Scanner;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -18,17 +16,6 @@ import com.google.gson.JsonParser;
 import org.json.simple.JSONObject;
 
 public class GenerarFitxers {
-    //Funcio que converteix el nom d'un pokemon a id numeric
-    private long nameToID(String name, Pokemon[] poke) {
-        long id = -1;
-
-        for (int i = 0; i < poke.length; i++){
-            if (poke[i].getNom().equalsIgnoreCase(name)){
-                id = poke[i].getId();
-            }
-        }
-        return id;
-    }
 
     private JsonObject consultaAPI(String sURL) throws IOException {
         // Connect to the URL using java's native library
@@ -46,15 +33,6 @@ public class GenerarFitxers {
         JsonObject objecte = root.getAsJsonObject(); //May be an array, may be an object.
         return objecte;
     }
-
-    /*private boolean existeixPokemon(Long id , Pokemon[] poke){
-        for(int i = 0 ; i < poke.length ; i++){
-            if(poke[i].getId().equals(id)){
-                return true;
-            }
-        }
-        return false;
-    }*/
 
     public void informeCapturats(Jugador jugador){
         FileOutputStream pokemonsCapturats;
