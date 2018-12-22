@@ -8,9 +8,6 @@
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.FileOutputStream;
-import java.io.PrintStream;
-import java.io.FileNotFoundException;
 
 public class Logica {
 

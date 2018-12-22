@@ -4,7 +4,6 @@
  * @version 1.5
  * @since 1.0
  */
-import java.util.ArrayList;
 
 public class Jugador {
 
