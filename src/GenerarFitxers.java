@@ -47,14 +47,14 @@ public class GenerarFitxers {
         return objecte;
     }
 
-    private boolean existeixPokemon(Long id , Pokemon[] poke){
+    /*private boolean existeixPokemon(Long id , Pokemon[] poke){
         for(int i = 0 ; i < poke.length ; i++){
             if(poke[i].getId().equals(id)){
                 return true;
             }
         }
         return false;
-    }
+    }*/
 
     public void informeCapturats(Jugador jugador){
         FileOutputStream pokemonsCapturats;
@@ -103,51 +103,25 @@ public class GenerarFitxers {
         }
     }
 
-    public void infoPokemon(Pokemon[] poke){
-        JsonObject pokeInfo;
-        JsonObject sprites;
-        JsonArray flavor_text_entries;
-        String name;
-        long id;
-        String image;
+    public void infoPokemon(Pokemon[] poke, Logica logic){
         String description = null;
-        long height;
-        long weight;
-        long base_experience;
 
-        //Demanem Pokemon
-        System.out.println("De quin Pokémon vols informació?");
-        Scanner teclat = new Scanner (System.in);
-        String input = teclat.next();
-        Long nom;
-        Boolean exists;
-
-        try{
-            int num = Integer.parseInt(input);
-            exists = existeixPokemon((long)num, poke);
-            nom = (long)num;
-
-        }catch(NumberFormatException e){            //Si no es el nom del pokemon, ho pasem a id
-            nom = nameToID(input, poke);
-            exists = existeixPokemon(nom, poke);
-        }
-
-        //Comprobar pokemon existeix
-        if(exists){
+        long id = logic.demanaPokemon(poke);
+        if(logic.existeixPokemon(id, poke)){
             try {
-                pokeInfo = consultaAPI("https://pokeapi.co/api/v2/pokemon/" + nom + "/");
-                name = pokeInfo.get("name").getAsString();
+                JsonObject pokeInfo = consultaAPI("https://pokeapi.co/api/v2/pokemon/" + id + "/");
+                String name = pokeInfo.get("name").getAsString();
                 String nameCap = name.substring(0, 1).toUpperCase() + name.substring(1);
                 id = pokeInfo.get("id").getAsLong();
-                sprites = (JsonObject) pokeInfo.get("sprites");
-                image = sprites.get("front_shiny").getAsString();
-                height = pokeInfo.get("height").getAsLong();
-                weight= pokeInfo.get("weight").getAsLong();
-                base_experience = pokeInfo.get("base_experience").getAsLong();
+                JsonObject sprites = (JsonObject) pokeInfo.get("sprites");
+                String image = sprites.get("front_shiny").getAsString();
+                long height = pokeInfo.get("height").getAsLong();
+                long weight= pokeInfo.get("weight").getAsLong();
+                long base_experience = pokeInfo.get("base_experience").getAsLong();
 
                 //Llegim flavour text de pokemon-species
-                pokeInfo = consultaAPI("https://pokeapi.co/api/v2/pokemon-species/" + nom + "/");
-                flavor_text_entries = (JsonArray) pokeInfo.get("flavor_text_entries");
+                pokeInfo = consultaAPI("https://pokeapi.co/api/v2/pokemon-species/" + id + "/");
+                JsonArray flavor_text_entries = (JsonArray) pokeInfo.get("flavor_text_entries");
                 for(int i = 0 ; i< flavor_text_entries.size() ; i++){
                     JsonObject flavor_text = (JsonObject) flavor_text_entries.get(i);
                     JsonObject language = (JsonObject) flavor_text.get("language");

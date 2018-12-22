@@ -52,7 +52,7 @@ public final class Main {
                         fitxers.informeCapturats(jugador);
                         break;
                     case 8:
-                        fitxers.infoPokemon(json.getPoke());
+                        fitxers.infoPokemon(json.getPoke(), logic);
                         break;
                     case 9:
                         System.out.println("Adeu! Ens veiem aviat :)");

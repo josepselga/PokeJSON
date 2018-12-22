@@ -142,6 +142,34 @@ public class Logica {
         return total;
     }
 
+    //Funcio que demana un pokemon al usuari i retorna l'id
+    public long demanaPokemon(Pokemon[] poke){
+        //Demanem Pokemon
+        System.out.println("De quin Pokémon vols informació?");
+        Scanner teclat = new Scanner (System.in);
+        String input = teclat.next();
+        Long id;
+
+        try{
+            int num = Integer.parseInt(input);
+            id = (long)num;
+            return id;
+        }catch(NumberFormatException e){            //Si no es el nom del pokemon, ho pasem a id
+            id = nameToID(input, poke);
+            return id;
+        }
+    }
+
+    //Funcio que comprova si existeix pokemon
+    public boolean existeixPokemon(Long id , Pokemon[] poke){
+        for(int i = 0 ; i < poke.length ; i++){
+            if(poke[i].getId().equals(id)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     //Funcio que ens diu si cal mostrar una missio o no (si esta començada)
     private boolean showMission(Jugador jugador, ArrayList<Mythical> mythicals, int i){
         boolean completed = false;
@@ -326,42 +354,16 @@ public class Logica {
     //OPCIO 4: buscar Pokemon salvatge
     public void buscaPokemonSalvatge(Pokemon[] poke, ArrayList<Legend> legends, ArrayList<Mythical> mythicals, Jugador jugador) {
 
-        boolean trobat = true;
-
         if (checkPokeballs (jugador)) {
 
-            Scanner entrada = new Scanner(System.in);
-            boolean idReaded = true;                                                                                    //Flag pe saber si ens han introduït un int o un String
-            System.out.println ("Quin Pokémon vol buscar?");
-            long id = 0;
-            String nom = " ";
+            long id = demanaPokemon(poke);
 
-            try {                                                                                                       //Ens poden introduir un ID int o un nom String.
-                id = entrada.nextLong();
-            }catch (java.util.InputMismatchException e) {
-               nom = entrada.next();
-               id = nameToID(nom, poke);
-            }
-            //Comprovar si es num o string
-
-            //Si es String pasar a id
-
-            //Comprovar si existeix pokemon
-            for (int i = 0; i < poke.length; i++) {
-
-                if (poke[i].getId() == id){
-                    trobat = true;
-                    id = poke[i].getId();
-
-                }
-            }
             //Començem captura
-            if (trobat){
+            if (existeixPokemon(id, poke)){
 
                 if (!itsLegend(legends, id) && !itsMythic(mythicals, id)) {
                     initiateCapture (jugador, poke, id);
                     checkMissions (jugador, poke, mythicals);
-
 
                 }else {
 
@@ -370,7 +372,6 @@ public class Logica {
                 }
 
             }else{
-
                 System.out.println("Ho sentim, però aquest Pokémon no existeix.");
             }
 

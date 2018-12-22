@@ -7,12 +7,14 @@ COSES A FER
 
 Cas 1 -- OK 
 
-Cas 4 -- no funciona entrada de pokemon
+Cas 4 -- (JSelga ja funciona)no funciona entrada de pokemon
 sistema de captura
 
 Cas 5 --
 
 ---Josep Selga---
+ 
+ *Arreglar entrada pokemons per usuari
  
 Lecturafitxers  --  OK
 
