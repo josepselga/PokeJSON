@@ -77,7 +77,7 @@ public class GenerarFitxers {
             uri.normalize();
             Desktop.getDesktop().browse(uri);
         } catch (IOException | URISyntaxException e) {
-            e.printStackTrace();
+            System.out.println(" Ja pots obrir el fitxer HTML (pokemonsCapturats.html)");
         }
     }
 
@@ -124,7 +124,7 @@ public class GenerarFitxers {
                 Desktop.getDesktop().browse(uri);
 
             } catch (IOException | URISyntaxException e) {
-                System.out.println(" Ja pots obrir el fitxer HTML");
+                System.out.println(" Ja pots obrir el fitxer HTML (infoPokemon.html)");
             }
         }else{
             System.out.println("Ho sentim, però aquest Pokémon no existeix (encara).");
