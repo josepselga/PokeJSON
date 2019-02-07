@@ -36,6 +36,9 @@ public class Jugador {
     }
 
     //Metodes de la clase
+    public void restaBall (int i){
+        numBalls[i]--;
+    }
     //Getters
     public int getMonedes() {
         return monedes;
@@ -56,5 +59,9 @@ public class Jugador {
     //Setters
     public void setMonedes(int monedes) {
         this.monedes = monedes;
+    }
+
+    public void updateHunted(int i){
+        this.numHunted[i]++;
     }
 }
