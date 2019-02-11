@@ -129,14 +129,14 @@ public class Logica {
 
     public boolean huntedPokemon(Jugador jugador, String choosedPokeball, Ball[] balls, int j, Pokemon[] poke){
 
-        long randomValue = 0;
+        double randomValue = 0;
         int probMyBall = 0;
         int probMyPokemon = 0;
-        long probCapture = 0;
+        double probCapture = 0;
 
         Random random = new Random();
         //producció d'un long aleatòri entre 0 i 1.
-        randomValue = 0;
+        randomValue = random.nextDouble();
 
         System.out.println("random num:" +randomValue);
 
@@ -149,7 +149,7 @@ public class Logica {
 
         probMyPokemon = poke[j].getCaptureRate();
 
-        probCapture = (long)(probMyBall/256 + probMyPokemon/2048);
+        probCapture = (double)(probMyBall/256 + probMyPokemon/2048);
 
         return (probCapture > randomValue);
     }
