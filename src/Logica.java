@@ -12,6 +12,12 @@ import java.util.Random;
 
 public class Logica {
 
+    private static final int EARTH_RADIUS;
+
+    static {
+        EARTH_RADIUS = 6371;
+    }
+
     public Logica() {
     }
 
@@ -76,6 +82,7 @@ public class Logica {
         int j = 0;
         int intents = 5;
         String choosedPokeball = " ";
+        String finePokeball = " ";
 
         for (int i = 0; i < poke.length; i++) {
 
@@ -91,6 +98,10 @@ public class Logica {
                     System.out.println("Queden " + totalPokeballs(jugador) + " Pokéballs i " + intents + "/5 intents. Quin tipus de Pokéball vol fer servir?");
                     Scanner entrada = new Scanner(System.in);
                     choosedPokeball = entrada.next();
+
+                    if (!correctPokeballName(jugador, choosedPokeball)){
+                        System.out.println("Aquesta Pokéball no existeix!");
+                    }
                 }while (!correctPokeballName(jugador, choosedPokeball) || !avaliablePokeballName(jugador, choosedPokeball));
 
                 updatePokeballs (jugador, choosedPokeball);
@@ -102,7 +113,8 @@ public class Logica {
                     return;
                 }else{
                     intents--;
-                    System.out.println("La " + choosedPokeball + " ha fallat!");
+                    finePokeball = tellPokeballName(jugador, choosedPokeball);
+                    System.out.println("La " + finePokeball + " ha fallat!");
                 }
         }
 
@@ -112,9 +124,19 @@ public class Logica {
             System.out.println("El pokémon " + poke[j].getNom() + " ha escapat...");
         }
 
+    }
 
+    public String tellPokeballName (Jugador jugador, String choosedPokeball) {
 
+        String pokeball = " ";
 
+        for (int i = 0; i < jugador.getNomBalls().length; i++) {
+
+            if (jugador.getNomBalls()[i].equalsIgnoreCase(choosedPokeball)) {
+                pokeball = jugador.getNomBalls()[i];
+            }
+        }
+        return pokeball;
     }
 
     public void updateHuntedNumber (Jugador jugador, Long id){
@@ -147,9 +169,15 @@ public class Logica {
             }
         }
 
+        System.out.println("prob bola: "+probMyBall);
+
         probMyPokemon = poke[j].getCaptureRate();
 
-        probCapture = (double)(probMyBall/256 + probMyPokemon/2048);
+        System.out.println("prob poke:"+probMyPokemon);
+
+        probCapture = (probMyBall/(double)256) + (probMyPokemon/(double)2048);
+
+        System.out.println("random num:" +probCapture);
 
         return (probCapture > randomValue);
     }
@@ -467,8 +495,109 @@ public class Logica {
     }
 
     //OPCIO 5: fer raid per buscar llegendaris
-    public void ferRaid () {
+    public void ferRaid (Jugador jugador, ArrayList<Legend> legends) {
 
+        double latitudUser = 0;
+        double longitudUser = 0;
+        int flag = 0;
+        String gimnasMesProper = " ";
+
+        do {
+            System.out.println("Latitud actual?");
+
+            try {
+                Scanner entrada = new Scanner (System.in);
+                latitudUser = entrada.nextDouble();
+                if (latitudUser < -90 || latitudUser > 90){
+                    System.out.println("Error! Introdueix una latitud vàlida! (entre -90 i 90)");
+                    latitudUser = 0;
+                }else{
+                    flag = 1;
+                }
+            }catch (java.util.InputMismatchException e) {
+                System.out.println("Error! Introdueix un número real!");
+                latitudUser = 0;
+            }
+        }while(flag == 0);
+
+        flag = 0;
+
+        do {
+            System.out.println("Longitud actual?");
+
+            try {
+                Scanner entrada2 = new Scanner (System.in);
+                longitudUser = entrada2.nextDouble();
+                if (longitudUser < -180 || longitudUser > 180){
+                    System.out.println("Error! Introdueix una longitud vàlida! (entre -180 i 180)");
+                    longitudUser = 0;
+                }else{
+                    flag = 1;
+                }
+            }catch (java.util.InputMismatchException e) {
+                System.out.println("Error! Introdueix un número real!");
+                longitudUser = 0;
+            }
+        }while(flag == 0);
+
+        gimnasMesProper = distanciaMinima (jugador, legends, latitudUser, longitudUser);
+
+    }
+
+    public String distanciaMinima (Jugador jugador, ArrayList<Legend> legends, double latitudUser, double longitudUser){
+        double distanciaMinima = 0;
+        int flag = 0;
+        double latitudGymMesProper = 0;
+        double longitudGymMesProper = 0;
+
+        //Inicialització de la distància mínima. Càlcul entre la distància del Player i el primer gimnàs que es troba al ArrayList
+        for (int i = 0; i < legends.size() || flag == 0; i++){
+            double latitudGym1 = 0;
+            double longitudGym1 = 0;
+
+            if (legends.get(i).getKind().equals("legendary")){
+                latitudGym1 = legends.get(i).getLatitude();
+                longitudGym1 = legends.get(i).getLongitude();
+                flag = 1;
+                distanciaMinima = distance(latitudUser, longitudUser, latitudGym1, longitudGym1);
+            }
+        }
+
+        for (int i = 0; i < legends.size(); i++){
+            double latitudGym = 0;
+            double longitudGym = 0;
+
+            if (legends.get(i).getKind().equals("legendary")){
+                latitudGym = legends.get(i).getLatitude();
+                longitudGym = legends.get(i).getLongitude();
+
+                if (distance(latitudUser, longitudUser, latitudGym, longitudGym) < distanciaMinima){
+                    latitudGymMesProper = latitudGym;
+                    longitudGymMesProper = longitudGym;
+                }
+            }
+        }
+
+
+    }
+
+    //Càlcul de la distància entre dos punts mitjançant la Fórmula de Haversine
+    public double distance(double startLat, double startLong, double endLat, double endLong) {
+
+        double dLat  = Math.toRadians((endLat - startLat));
+        double dLong = Math.toRadians((endLong - startLong));
+
+        startLat = Math.toRadians(startLat);
+        endLat   = Math.toRadians(endLat);
+
+        double a = haversin(dLat) + Math.cos(startLat) * Math.cos(endLat) * haversin(dLong);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+        return EARTH_RADIUS * c;
+    }
+
+    public double haversin(double val) {
+        return Math.pow(Math.sin(val / 2), 2);
     }
 
     //OPCIO 6: veure missions en progress

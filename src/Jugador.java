@@ -30,7 +30,7 @@ public class Jugador {
         numHunted[131] = 1;
         numHunted[0] = 5;
         numHunted[3] = 5;
-        numHunted[6] = 2;
+        numHunted[6] = 3;
         numHunted[132] = 5;
         numHunted[181] = 1;
     }

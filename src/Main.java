@@ -43,7 +43,7 @@ public final class Main {
                         logic.buscaPokemonSalvatge(json.getPoke(),json.getLegend(), json.getMythical(), jugador, json.getBalls());
                         break;
                     case 5:
-                       logic.ferRaid();
+                       logic.ferRaid(jugador, json.getLegend());
                         break;
                     case 6:
                         logic.recerquesEspecials(jugador, json.getMythical(), json.getPoke());
