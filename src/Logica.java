@@ -160,8 +160,6 @@ public class Logica {
         //producció d'un long aleatòri entre 0 i 1.
         randomValue = random.nextDouble();
 
-        System.out.println("random num:" +randomValue);
-
         for (int i = 0; i < balls.length; i++){
 
             if (balls[i].getName().equalsIgnoreCase(choosedPokeball)){
@@ -169,11 +167,7 @@ public class Logica {
             }
         }
 
-        System.out.println("prob bola: "+probMyBall);
-
         probMyPokemon = poke[j].getCaptureRate();
-
-        System.out.println("prob poke:"+probMyPokemon);
 
         probCapture = (probMyBall/(double)256) + (probMyPokemon/(double)2048);
 
@@ -495,74 +489,170 @@ public class Logica {
     }
 
     //OPCIO 5: fer raid per buscar llegendaris
-    public void ferRaid (Jugador jugador, ArrayList<Legend> legends) {
+    public void ferRaid (Jugador jugador, ArrayList<Legend> legends, Pokemon[] poke, Ball[] balls) {
 
         double latitudUser = 0;
         double longitudUser = 0;
         int flag = 0;
-        String gimnasMesProper = " ";
+        long gimnasMesProper = 0;
+        String gimnasMesProperr = " ";
 
-        do {
-            System.out.println("Latitud actual?");
+        if (checkPokeballs (jugador)) {
+            do {
+                System.out.println("Latitud actual?");
 
-            try {
-                Scanner entrada = new Scanner (System.in);
-                latitudUser = entrada.nextDouble();
-                if (latitudUser < -90 || latitudUser > 90){
-                    System.out.println("Error! Introdueix una latitud vàlida! (entre -90 i 90)");
+                try {
+                    Scanner entrada = new Scanner(System.in);
+                    latitudUser = entrada.nextDouble();
+                    if (latitudUser < -90 || latitudUser > 90) {
+                        System.out.println("Error! Introdueix una latitud vàlida! (entre -90 i 90)");
+                        latitudUser = 0;
+                    } else {
+                        flag = 1;
+                    }
+                } catch (java.util.InputMismatchException e) {
+                    System.out.println("Error! Introdueix un número real!");
                     latitudUser = 0;
-                }else{
-                    flag = 1;
                 }
-            }catch (java.util.InputMismatchException e) {
-                System.out.println("Error! Introdueix un número real!");
-                latitudUser = 0;
-            }
-        }while(flag == 0);
+            } while (flag == 0);
 
-        flag = 0;
+            flag = 0;
 
-        do {
-            System.out.println("Longitud actual?");
+            do {
+                System.out.println("Longitud actual?");
 
-            try {
-                Scanner entrada2 = new Scanner (System.in);
-                longitudUser = entrada2.nextDouble();
-                if (longitudUser < -180 || longitudUser > 180){
-                    System.out.println("Error! Introdueix una longitud vàlida! (entre -180 i 180)");
+                try {
+                    Scanner entrada2 = new Scanner(System.in);
+                    longitudUser = entrada2.nextDouble();
+                    if (longitudUser < -180 || longitudUser > 180) {
+                        System.out.println("Error! Introdueix una longitud vàlida! (entre -180 i 180)");
+                        longitudUser = 0;
+                    } else {
+                        flag = 1;
+                    }
+                } catch (java.util.InputMismatchException e) {
+                    System.out.println("Error! Introdueix un número real!");
                     longitudUser = 0;
-                }else{
-                    flag = 1;
                 }
-            }catch (java.util.InputMismatchException e) {
-                System.out.println("Error! Introdueix un número real!");
-                longitudUser = 0;
+            } while (flag == 0);
+            //Retorna el id (long) del gimnàs més proper al jugador
+            gimnasMesProper = distanciaMinima(jugador, legends, latitudUser, longitudUser);
+            //Recerca del nom del gimnàs.
+            for (int i = 0; i < legends.size(); i++) {
+                if (legends.get(i).getId() == gimnasMesProper) {
+                    gimnasMesProperr = legends.get(i).getGymName();
+                }
             }
-        }while(flag == 0);
 
-        gimnasMesProper = distanciaMinima (jugador, legends, latitudUser, longitudUser);
+            String boss = " ";
+            //Recerca del nom del Boss del Gimnàs
+            for (int i = 0; i < poke.length; i++) {
+                if (poke[i].getId() == gimnasMesProper) {
+                    boss = poke[i].getNom();
+                }
+            }
+            System.out.println("Gimnàs més proper: " + gimnasMesProperr + ". Començant Raid...");
+            System.out.println("El boss de Raid " + boss + " us repta!");
+
+            initiateLegendCapture (jugador, poke, gimnasMesProper, balls);
+
+
+        }else{
+            System.out.println("Ho sentim, però no té Pokéballs disponibles, pel que no pot buscar Pokémons.");
+            System.out.println("Pot adquirir Pokéballs a la botiga!");
+        }
 
     }
 
-    public String distanciaMinima (Jugador jugador, ArrayList<Legend> legends, double latitudUser, double longitudUser){
+    public void initiateLegendCapture (Jugador jugador, Pokemon[] poke, long id, Ball[] balls) {
+
+        int j = 0;
+        int intents = 5;
+        String choosedPokeball = " ";
+        String finePokeball = " ";
+
+        for (int i = 0; i < poke.length; i++) {
+
+            if (poke[i].getId().equals(id)) {
+                j = i;
+            }
+        }
+
+        while (checkPokeballs(jugador) && intents > 0) {
+
+            do {
+                System.out.println("Queden " + totalPokeballs(jugador) + " Pokéballs i " + intents + "/5 intents. Quin tipus de Pokéball vol fer servir?");
+                Scanner entrada = new Scanner(System.in);
+                choosedPokeball = entrada.next();
+
+                if (!correctPokeballName(jugador, choosedPokeball)){
+                    System.out.println("Aquesta Pokéball no existeix!");
+                }
+            }while (!correctPokeballName(jugador, choosedPokeball) || !avaliablePokeballName(jugador, choosedPokeball));
+
+            updatePokeballs (jugador, choosedPokeball);
+
+            if (huntedLegendPokemon(jugador, choosedPokeball, balls, j, poke)){
+
+                updateHuntedNumber(jugador, id);
+                System.out.println("El pokémon " + poke[j].getNom() + " ha estat capturat!");
+                return;
+            }else{
+                intents--;
+                finePokeball = tellPokeballName(jugador, choosedPokeball);
+                System.out.println("La " + finePokeball + " ha fallat!");
+            }
+        }
+
+        if (!checkPokeballs(jugador)){
+            System.out.println("No queden Pokéballs...");
+        }else{
+            System.out.println("El pokémon " + poke[j].getNom() + " ha escapat...");
+        }
+    }
+
+    public boolean huntedLegendPokemon(Jugador jugador, String choosedPokeball, Ball[] balls, int j, Pokemon[] poke){
+        double randomValue = 0;
+        int probMyBall = 0;
+        int probMyPokemon = 0;
+        double probCapture = 0;
+
+        Random random = new Random();
+        //producció d'un long aleatòri entre 0 i 1.
+        randomValue = random.nextDouble();
+
+        for (int i = 0; i < balls.length; i++){
+
+            if (balls[i].getName().equalsIgnoreCase(choosedPokeball)){
+                probMyBall = balls[i].getCapture_rate();
+            }
+        }
+
+        probMyPokemon = poke[j].getCaptureRate();
+
+        probCapture = (probMyBall/(double)256) + (probMyPokemon/(double)2048);
+
+        return (probCapture > randomValue);
+    }
+
+    public long distanciaMinima (Jugador jugador, ArrayList<Legend> legends, double latitudUser, double longitudUser){
         double distanciaMinima = 0;
         int flag = 0;
         double latitudGymMesProper = 0;
         double longitudGymMesProper = 0;
+        long gimnasProper = 0;
 
         //Inicialització de la distància mínima. Càlcul entre la distància del Player i el primer gimnàs que es troba al ArrayList
         for (int i = 0; i < legends.size() || flag == 0; i++){
-            double latitudGym1 = 0;
-            double longitudGym1 = 0;
 
             if (legends.get(i).getKind().equals("legendary")){
-                latitudGym1 = legends.get(i).getLatitude();
-                longitudGym1 = legends.get(i).getLongitude();
+                latitudGymMesProper = legends.get(i).getLatitude();
+                longitudGymMesProper = legends.get(i).getLongitude();
                 flag = 1;
-                distanciaMinima = distance(latitudUser, longitudUser, latitudGym1, longitudGym1);
+                distanciaMinima = distance(latitudUser, longitudUser, latitudGymMesProper, longitudGymMesProper);
             }
         }
-
+        //Càlcul de la distància mínima
         for (int i = 0; i < legends.size(); i++){
             double latitudGym = 0;
             double longitudGym = 0;
@@ -574,11 +664,19 @@ public class Logica {
                 if (distance(latitudUser, longitudUser, latitudGym, longitudGym) < distanciaMinima){
                     latitudGymMesProper = latitudGym;
                     longitudGymMesProper = longitudGym;
+                    distanciaMinima = distance(latitudUser, longitudUser, latitudGym, longitudGym);
                 }
             }
         }
-
-
+        //extreiem la posicio del gimnàs més proper
+        for (int i = 0; i < legends.size(); i++){
+            if (legends.get(i).getKind().equals("legendary")){
+                if ((legends.get(i).getLatitude() == latitudGymMesProper) && (legends.get(i).getLongitude() == longitudGymMesProper)){
+                    gimnasProper = legends.get(i).getId();
+                }
+            }
+        }
+        return gimnasProper;
     }
 
     //Càlcul de la distància entre dos punts mitjançant la Fórmula de Haversine
