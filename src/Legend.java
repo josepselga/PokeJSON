@@ -1,4 +1,4 @@
-/** Clase amb la logica del programa
+/** Clase objecte dels Pokemons Legendaris.
  * @author Josep Lluis
  * @author Josep Selga
  * @version 1.5

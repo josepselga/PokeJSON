@@ -1,10 +1,13 @@
-/** Clase amb la logica del programa
+/** Classe amb la logica del programa
  * @author Josep Lluis
  * @author Josep Selga
  * @version 1.5
  * @since 1.0
  */
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -77,7 +80,7 @@ public class Logica {
     }
 
     //Proces que duu a terme la captura d'un Pokemon
-    public void initiateCapture (Jugador jugador, Pokemon[] poke, long id, Ball[] balls){
+    public void initiateCapture(Jugador jugador, Pokemon[] poke, long id, Ball[] balls, ArrayList<Mythical> mythicals){
 
         int j = 0;
         int intents = 5;
@@ -90,32 +93,25 @@ public class Logica {
                 j = i;
             }
         }
-        System.out.println ("Un "+poke[j].getNom()+" salvatge aparegué!");
+        String name = idToName(id, poke);
+        System.out.println ("Un "+name+" salvatge aparegué!");
 
         while (checkPokeballs(jugador) && intents > 0) {
 
-                do {
-                    System.out.println("Queden " + totalPokeballs(jugador) + " Pokéballs i " + intents + "/5 intents. Quin tipus de Pokéball vol fer servir?");
-                    Scanner entrada = new Scanner(System.in);
-                    choosedPokeball = entrada.next();
+            choosedPokeball = comprovaChoosedPokeball(jugador, intents);                        //Quina pokeball vols utilitzar?
 
-                    if (!correctPokeballName(jugador, choosedPokeball)){
-                        System.out.println("Aquesta Pokéball no existeix!");
-                    }
-                }while (!correctPokeballName(jugador, choosedPokeball) || !avaliablePokeballName(jugador, choosedPokeball));
+            updatePokeballs (jugador, choosedPokeball);
 
-                updatePokeballs (jugador, choosedPokeball);
-
-                if (huntedPokemon(jugador, choosedPokeball, balls, j, poke)){
-
-                    updateHuntedNumber(jugador, id);
-                    System.out.println("El pokémon " + poke[j].getNom() + " ha estat capturat!");
-                    return;
-                }else{
-                    intents--;
-                    finePokeball = tellPokeballName(jugador, choosedPokeball);
-                    System.out.println("La " + finePokeball + " ha fallat!");
-                }
+            if (huntedPokemon(choosedPokeball, balls, j, poke)){
+                updateHuntedNumber(jugador, id);
+                System.out.println("El pokémon " + poke[j].getNom() + " ha estat capturat!");
+                checkMissions (jugador, poke, mythicals);
+                return;
+            }else{
+                intents--;
+                finePokeball = tellPokeballName(jugador, choosedPokeball);
+                System.out.println("La " + finePokeball + " ha fallat!");
+            }
         }
 
         if (!checkPokeballs(jugador)){
@@ -124,6 +120,24 @@ public class Logica {
             System.out.println("El pokémon " + poke[j].getNom() + " ha escapat...");
         }
 
+    }
+
+    private String comprovaChoosedPokeball(Jugador jugador, int intents) {
+        String choosedPokeball;
+        do {
+            System.out.println("Queden " + totalPokeballs(jugador) + " Pokéballs i " + intents + "/5 intents. Quin tipus de Pokéball vol fer servir?");
+            Scanner entrada = new Scanner(System.in);
+            choosedPokeball = entrada.next();
+
+            if (!correctPokeballName(jugador, choosedPokeball)){
+                System.out.println("Aquesta Pokéball no existeix!");
+            }else{
+                if (!avaliablePokeballName(jugador, choosedPokeball)){
+                    System.out.println("No disposes de "+choosedPokeball+"!");
+                }
+            }
+        }while (!correctPokeballName(jugador, choosedPokeball) || !avaliablePokeballName(jugador, choosedPokeball));
+        return choosedPokeball;
     }
 
     public String tellPokeballName (Jugador jugador, String choosedPokeball) {
@@ -149,7 +163,7 @@ public class Logica {
         }
     }
 
-    public boolean huntedPokemon(Jugador jugador, String choosedPokeball, Ball[] balls, int j, Pokemon[] poke){
+    public boolean huntedPokemon(String choosedPokeball, Ball[] balls, int j, Pokemon[] poke){
 
         double randomValue = 0;
         int probMyBall = 0;
@@ -166,13 +180,8 @@ public class Logica {
                 probMyBall = balls[i].getCapture_rate();
             }
         }
-
         probMyPokemon = poke[j].getCaptureRate();
-
         probCapture = (probMyBall/(double)256) + (probMyPokemon/(double)2048);
-
-        System.out.println("random num:" +probCapture);
-
         return (probCapture > randomValue);
     }
 
@@ -277,22 +286,24 @@ public class Logica {
         boolean completed = false;
         boolean started = false;
         //Comprobem que la missio estigui començada
-        for(int j = 0 ; j < mythicals.get(i).getTarget().size() ; j++){
+        for (int j = 0 ; j < mythicals.get(i).getTarget().size() ; j++){
             long idl = mythicals.get(i).getTarget().get(j);
             int idi = (int) idl;
-            if(jugador.getNumHunted()[idi-1] > 0){
+
+            if (jugador.getNumHunted()[idi-1] > 0){
                 started = true;
-                if(jugador.getNumHunted()[idi-1] == mythicals.get(i).getQuantity().get(j)){
+                if (jugador.getNumHunted()[idi-1] == mythicals.get(i).getQuantity().get(j)){
                     completed = true;
                 }
             }
-            if(completed && jugador.getNumHunted()[idi-1] >= mythicals.get(i).getQuantity().get(j)){
+            if (completed && jugador.getNumHunted()[idi-1] >= mythicals.get(i).getQuantity().get(j)){
                 completed = true;
             }else{
                 completed = false;
             }
+
         }
-        if(started && !completed){
+        if (started && !completed){
             return true;
         }else{
             return false;
@@ -302,15 +313,83 @@ public class Logica {
     //Funcio que comproba si hi ha missions començades
     private boolean hihaMissions(Jugador jugador, ArrayList<Mythical> mythicals){
 
-        for(int i = 0 ; i < mythicals.size() ; i++){
-            if(showMission(jugador, mythicals, i)){
+        for (int i = 0 ; i < mythicals.size() ; i++){
+            if (showMission(jugador, mythicals, i)){
                 return true;
             }
         }
         return false;
     }
 
-    public void checkMissions (Jugador jugador, Pokemon[] poke, ArrayList<Mythical> mythicals){}
+    public void checkMissions(Jugador jugador, Pokemon[] poke, ArrayList<Mythical> mythicals){
+
+        for(int i = 0; i < mythicals.size(); i++){
+            boolean completed = true;
+
+            for(int j = 0; j < mythicals.get(i).getTarget().size(); j++){
+
+                long k = mythicals.get(i).getTarget().get(j);
+                int l = (int)k;
+
+                if(jugador.getNumHunted()[l-1] < mythicals.get(i).getQuantity().get(j)){
+                    completed = false;
+                }
+            }
+
+            if (completed){
+                long j = mythicals.get(i).getId();
+                int h = (int)j;
+
+                if(jugador.getNumHunted()[h-1] == 0) {
+                    String name = idToName(poke[h - 1].getId(), poke);
+                    System.out.println("Missió de captura completada!");
+                    System.out.println("Recerca especial completada: Se t'apareix el mític " + name);
+                    initiateMythicCapture(jugador, poke, h);
+                }
+            }
+        }
+    }
+
+    private void initiateMythicCapture(Jugador jugador, Pokemon[] poke, int i){
+        int intents = 5;
+        String choosedPokeball = " ";
+        String finePokeball = " ";
+
+        while(intents > 0){
+
+            do {
+                System.out.println("Queden "+ intents + "/5 intents. Quin tipus de Pokéball vol fer servir?");
+                Scanner entrada = new Scanner(System.in);
+                choosedPokeball = entrada.next();
+
+                if (!correctPokeballName(jugador, choosedPokeball)) {
+                    System.out.println("Aquesta Pokéball no existeix!");
+                }
+            }while (!correctPokeballName(jugador, choosedPokeball));
+
+                if (huntedMythicPokemon()){
+                    String name = idToName(poke[i-1].getId(), poke);
+                    updateHuntedNumber(jugador, poke[i-1].getId());
+                    System.out.println("El pokémon " + name + " ha estat capturat!");
+                    return;
+                }else{
+                    intents--;
+                    finePokeball = tellPokeballName(jugador, choosedPokeball);
+                    System.out.println("La " + finePokeball + " ha fallat!");
+                }
+
+        }
+    }
+
+    private boolean huntedMythicPokemon() {
+        double randomValue = 0;
+        double probCapture = 1;
+
+        Random random = new Random();
+        //producció d'un long aleatòri entre 0 i 1.
+        randomValue = random.nextDouble();
+        return (probCapture > randomValue);
+    }
 
     // OPCIO 1: afegir monedes al jugador
     public void afegeixMonedes(Jugador jugador) {
@@ -439,21 +518,22 @@ public class Logica {
 
     //OPCIO 3: consultar inventari del jugador
     public void consultaInventari(Jugador jugador) {
+        int j = 0;
         System.out.println("Inventari:");
         for (int i = 0; i < jugador.getNomBalls().length; i++) {
             String name = jugador.getNomBalls()[i];
             String nameCap = name.substring(0, 1).toUpperCase() + name.substring(1);
             if (jugador.getNumBalls()[i] != 0) {
+                j++;
                 if (jugador.getNumBalls()[i] > 1) {
                     System.out.println("   - " + jugador.getNumBalls()[i] + "x " + nameCap + "s");
                 } else {
                     System.out.println("   - " + jugador.getNumBalls()[i] + "x " + nameCap);
                 }
-            } else {
-                if (i == 0) {
-                    System.out.println("No disposes d'inventari!");
-                }
             }
+        }
+        if (j == 0) {
+        System.out.println("No disposes d'inventari!");
         }
     }
 
@@ -468,11 +548,8 @@ public class Logica {
             if (existeixPokemon(id, poke)){
 
                 if (!itsLegend(legends, id) && !itsMythic(mythicals, id)) {
-                    initiateCapture (jugador, poke, id, balls);
-                    checkMissions (jugador, poke, mythicals);
-
+                    initiateCapture (jugador, poke, id, balls, mythicals);
                 }else {
-
                     if (itsLegend(legends, id)) System.out.println("Ho sentim, però aquest Pokémon és llegendari i no apareix salvatge.");
                     if (itsMythic(mythicals, id)) System.out.println("Ho sentim, però aquest Pokémon és mític i no apareix salvatge.");
                 }
@@ -491,10 +568,10 @@ public class Logica {
     //OPCIO 5: fer raid per buscar llegendaris
     public void ferRaid (Jugador jugador, ArrayList<Legend> legends, Pokemon[] poke, Ball[] balls) {
 
-        double latitudUser = 0;
-        double longitudUser = 0;
+        double latitudUser;
+        double longitudUser;
         int flag = 0;
-        long gimnasMesProper = 0;
+        long gimnasMesProper;
         String gimnasMesProperr = " ";
 
         if (checkPokeballs (jugador)) {
@@ -536,7 +613,7 @@ public class Logica {
                 }
             } while (flag == 0);
             //Retorna el id (long) del gimnàs més proper al jugador
-            gimnasMesProper = distanciaMinima(jugador, legends, latitudUser, longitudUser);
+            gimnasMesProper = distanciaMinima(legends, latitudUser, longitudUser);
             //Recerca del nom del gimnàs.
             for (int i = 0; i < legends.size(); i++) {
                 if (legends.get(i).getId() == gimnasMesProper) {
@@ -580,19 +657,11 @@ public class Logica {
 
         while (checkPokeballs(jugador) && intents > 0) {
 
-            do {
-                System.out.println("Queden " + totalPokeballs(jugador) + " Pokéballs i " + intents + "/5 intents. Quin tipus de Pokéball vol fer servir?");
-                Scanner entrada = new Scanner(System.in);
-                choosedPokeball = entrada.next();
-
-                if (!correctPokeballName(jugador, choosedPokeball)){
-                    System.out.println("Aquesta Pokéball no existeix!");
-                }
-            }while (!correctPokeballName(jugador, choosedPokeball) || !avaliablePokeballName(jugador, choosedPokeball));
+            choosedPokeball = comprovaChoosedPokeball(jugador, intents);
 
             updatePokeballs (jugador, choosedPokeball);
 
-            if (huntedLegendPokemon(jugador, choosedPokeball, balls, j, poke)){
+            if (huntedLegendPokemon(choosedPokeball, balls, j, poke)){
 
                 updateHuntedNumber(jugador, id);
                 System.out.println("El pokémon " + poke[j].getNom() + " ha estat capturat!");
@@ -611,11 +680,11 @@ public class Logica {
         }
     }
 
-    public boolean huntedLegendPokemon(Jugador jugador, String choosedPokeball, Ball[] balls, int j, Pokemon[] poke){
-        double randomValue = 0;
+    public boolean huntedLegendPokemon(String choosedPokeball, Ball[] balls, int j, Pokemon[] poke){
+        double randomValue;
         int probMyBall = 0;
-        int probMyPokemon = 0;
-        double probCapture = 0;
+        int probMyPokemon;
+        double probCapture;
 
         Random random = new Random();
         //producció d'un long aleatòri entre 0 i 1.
@@ -630,12 +699,12 @@ public class Logica {
 
         probMyPokemon = poke[j].getCaptureRate();
 
-        probCapture = (probMyBall/(double)256) + (probMyPokemon/(double)2048);
+        probCapture = (Math.pow(probMyBall, 1.5) + Math.pow(probMyPokemon, Math.PI)) / ((double)4096);
 
         return (probCapture > randomValue);
     }
 
-    public long distanciaMinima (Jugador jugador, ArrayList<Legend> legends, double latitudUser, double longitudUser){
+    public long distanciaMinima (ArrayList<Legend> legends, double latitudUser, double longitudUser){
         double distanciaMinima = 0;
         int flag = 0;
         double latitudGymMesProper = 0;
@@ -654,8 +723,8 @@ public class Logica {
         }
         //Càlcul de la distància mínima
         for (int i = 0; i < legends.size(); i++){
-            double latitudGym = 0;
-            double longitudGym = 0;
+            double latitudGym;
+            double longitudGym;
 
             if (legends.get(i).getKind().equals("legendary")){
                 latitudGym = legends.get(i).getLatitude();
@@ -700,14 +769,14 @@ public class Logica {
 
     //OPCIO 6: veure missions en progress
     public void recerquesEspecials (Jugador jugador, ArrayList <Mythical> mythicals, Pokemon[] poke){
-        if(hihaMissions(jugador, mythicals)){
+        if (hihaMissions(jugador, mythicals)){
             System.out.println("Recerques Especials:");
             System.out.println(" ");
-            for(int i = 0 ; i < mythicals.size() ; i++){
-                if(showMission(jugador, mythicals, i)){
+            for (int i = 0 ; i < mythicals.size() ; i++){
+                if (showMission(jugador, mythicals, i)){
                     String name = idToName(mythicals.get(i).getId(), poke);
                     System.out.println("    - " + mythicals.get(i).getResearchName() + " (" + name + "):");
-                    for(int j = 0 ; j < mythicals.get(i).getTarget().size() ; j++){
+                    for (int j = 0 ; j < mythicals.get(i).getTarget().size() ; j++){
                         long idl = mythicals.get(i).getTarget().get(j);
                         int idi = (int)idl;
                         float capturats = jugador.getNumHunted()[(idi)-1];
@@ -721,5 +790,6 @@ public class Logica {
             System.out.println("No hi han missions començades!");
         }
     }
+
 }
 

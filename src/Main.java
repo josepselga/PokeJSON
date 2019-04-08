@@ -23,6 +23,8 @@ public final class Main {
 
             System.out.println ("Benvingut a PokéJSON, aconsegueix-los tots!");
 
+
+
             do{
 
                 do{

@@ -1,3 +1,9 @@
+/** Clase objecte dels Pokémons Mítics.
+ * @author Josep Lluis
+ * @author Josep Selga
+ * @version 1.5
+ * @since 1.0
+ */
 import java.util.ArrayList;
 
 public class Mythical {
@@ -5,7 +11,7 @@ public class Mythical {
     private long id;
     private String kind;
     private String researchName;
-    private ArrayList<Long> target;                  //Si no va fer clase especial research
+    private ArrayList<Long> target;
     private ArrayList<Long> quantity;
 
     public Mythical() {

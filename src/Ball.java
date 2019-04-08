@@ -1,4 +1,4 @@
-/** Clase amb la logica del programa
+/** Clase objecte de les Pokeballs.
  * @author Josep Lluis
  * @author Josep Selga
  * @version 1.5

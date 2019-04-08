@@ -1,3 +1,9 @@
+/** Classe de lectura de fitxers JSON.
+ * @author Josep Lluis
+ * @author Josep Selga
+ * @version 1.5
+ * @since 1.0
+ */
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;

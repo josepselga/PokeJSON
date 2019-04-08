@@ -1,4 +1,4 @@
-/** Representa el jugador de la partida
+/** Classe que representa el jugador de la partida
  * @author Josep Lluis
  * @author Josep Selga
  * @version 1.5
@@ -27,12 +27,12 @@ public class Jugador {
             nomBalls[i] = ball[i].getName();
         }
         numBalls = new int[ball.length];
-        numHunted[131] = 1;
-        numHunted[0] = 5;
-        numHunted[3] = 5;
-        numHunted[6] = 3;
-        numHunted[132] = 5;
-        numHunted[181] = 1;
+        numHunted[119] = 5;
+        numHunted[279] = 10;
+        numHunted[357] = 2;
+        numHunted[336] = 10;
+        numHunted[337] = 10;
+        numHunted[350] = 9;
     }
 
     //Metodes de la clase

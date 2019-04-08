@@ -1,4 +1,4 @@
-/** Conte tot lo relacionat amb els menus del programa
+/** Conté tot el que està relacionat amb els menús del programa.
  * @author Josep Lluis
  * @author Josep Selga
  * @version 1.5
