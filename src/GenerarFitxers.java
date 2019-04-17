@@ -16,7 +16,6 @@ import com.google.gson.JsonParser;
 public class GenerarFitxers {
 
     private JsonObject consultaAPI(String sURL) throws IOException {
-        // Connect to the URL using java's native library
         URL url = null;
         URLConnection request = null;
         // Iniciem conexio amb la API
@@ -24,11 +23,11 @@ public class GenerarFitxers {
         request = url.openConnection();
         request.connect();
 
-        // Convert to a JSON object to print data
-        JsonParser jp = new JsonParser();       //from gson
-        JsonElement root = null;                //Convert the input stream to a json element
+        // Convertim objecte json
+        JsonParser jp = new JsonParser();
+        JsonElement root = null;
         root = jp.parse(new InputStreamReader((InputStream) request.getContent()));
-        JsonObject objecte = root.getAsJsonObject(); //May be an array, may be an object.
+        JsonObject objecte = root.getAsJsonObject();
         return objecte;
     }
 
@@ -87,6 +86,7 @@ public class GenerarFitxers {
             try {
                 JsonObject pokeInfo = consultaAPI("https://pokeapi.co/api/v2/pokemon/" + id + "/");
                 String name = pokeInfo.get("name").getAsString();
+                System.out.println("Nom pokemon:" + name);
                 String nameCap = name.substring(0, 1).toUpperCase() + name.substring(1);
                 id = pokeInfo.get("id").getAsLong();
                 JsonObject sprites = (JsonObject) pokeInfo.get("sprites");
