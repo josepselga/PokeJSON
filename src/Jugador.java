@@ -27,12 +27,12 @@ public class Jugador {
             nomBalls[i] = ball[i].getName();
         }
         numBalls = new int[ball.length];
-        numHunted[119] = 5;
+        /*numHunted[119] = 5;
         numHunted[279] = 10;
         numHunted[357] = 2;
         numHunted[336] = 10;
         numHunted[337] = 10;
-        numHunted[350] = 9;
+        numHunted[350] = 9;*/
     }
 
     //Metodes de la clase
