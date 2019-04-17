@@ -254,9 +254,14 @@ public class Logica {
     }
 
     //Funcio que demana un pokemon al usuari i retorna l'id
-    public long demanaPokemon(Pokemon[] poke){
+    public long demanaPokemon(Pokemon[] poke, String tipusConuslta){
         //Demanem Pokemon
-        System.out.println("De quin Pokémon vols informació?");
+        if(tipusConuslta.equals("info")){
+            System.out.println("De quin Pokémon vols informació?");
+        }
+        if(tipusConuslta.equals("captura")){
+            System.out.println("Quin Pokémon vol buscar?");
+        }
         Scanner teclat = new Scanner (System.in);
         String input = teclat.next();
         long id;
@@ -542,7 +547,7 @@ public class Logica {
 
         if (checkPokeballs (jugador)) {
 
-            long id = demanaPokemon(poke);
+            long id = demanaPokemon(poke, "captura");
 
             //Començem captura
             if (existeixPokemon(id, poke)){

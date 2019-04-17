@@ -82,8 +82,7 @@ public class GenerarFitxers {
     public void infoPokemon(Pokemon[] poke, Logica logic){
         String description = null;
 
-        long id = logic.demanaPokemon(poke);
-        System.out.println(id);
+        long id = logic.demanaPokemon(poke, "info");
         if(logic.existeixPokemon(id, poke)){
             try {
                 JsonObject pokeInfo = consultaAPI("https://pokeapi.co/api/v2/pokemon/" + id + "/");
