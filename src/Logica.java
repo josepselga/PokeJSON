@@ -299,17 +299,7 @@ public class Logica {
 
             if (jugador.getNumHunted()[idi-1] > 0){
                 started = true;
-                /*if (jugador.getNumHunted()[idi-1] == mythicals.get(i).getQuantity().get(j)){
-                    completed = true;
-                }*/
             }
-
-            /*if (completed && jugador.getNumHunted()[idi-1] >= mythicals.get(i).getQuantity().get(j)){
-                completed = true;
-            }else{
-                completed = false;
-            }*/
-
         }
         //Comprovar si la misio esta completa
         boolean completed = true;
