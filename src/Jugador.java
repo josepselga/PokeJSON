@@ -1,4 +1,4 @@
-/** Classe que representa el jugador de la partida
+/** Classe que representa el jugador de la partida i tota la seva info
  * @author Josep Lluis
  * @author Josep Selga
  * @version 1.5
@@ -35,10 +35,6 @@ public class Jugador {
         numHunted[350] = 9;*/
     }
 
-    //Metodes de la clase
-    public void restaBall (int i){
-        numBalls[i]--;
-    }
     //Getters
     public int getMonedes() {
         return monedes;
@@ -60,8 +56,15 @@ public class Jugador {
     public void setMonedes(int monedes) {
         this.monedes = monedes;
     }
-
     public void updateHunted(int i){
         this.numHunted[i]++;
+    }
+
+    /**
+     * Disminueix el numero de balls disponibles d'un cert tipus
+     * @param i int Index del tipus de pokeball a restar
+     */
+    public void restaBall (int i){
+        numBalls[i]--;
     }
 }

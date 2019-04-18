@@ -1,3 +1,10 @@
+/** Classe generadora de fitxers html
+ * @author Josep Lluis
+ * @author Josep Selga
+ * @version 1.5
+ * @since 1.0
+ */
+
 import java.awt.*;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
@@ -15,6 +22,12 @@ import com.google.gson.JsonParser;
 
 public class GenerarFitxers {
 
+    /**
+     *
+     * @param sURL String amb la url de la api a conectar-se
+     * @return JsonObject que conte la info que hem consultat de la api
+     * @throws IOException
+     */
     private JsonObject consultaAPI(String sURL) throws IOException {
         URL url = null;
         URLConnection request = null;
@@ -31,6 +44,10 @@ public class GenerarFitxers {
         return objecte;
     }
 
+    /**
+     * Genera un fitxer html amb la llista de pokemons capturats pel jugador
+     * @param jugador informacio del jugador on trobem els pokemons capturats
+     */
     public void informeCapturats(Jugador jugador){
         FileOutputStream pokemonsCapturats;
         PrintStream result;
@@ -78,6 +95,11 @@ public class GenerarFitxers {
         }
     }
 
+    /**
+     * Genera un fitxer html amb la informacio detallada d'un pokemon
+     * @param poke Array amb tots els pokemons existents
+     * @param logic Clase logica per utilitzar la funcio de demanar pokemon
+     */
     public void infoPokemon(Pokemon[] poke, Logica logic){
         String description = null;
 

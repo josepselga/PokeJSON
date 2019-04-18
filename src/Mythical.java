@@ -18,7 +18,6 @@ public class Mythical {
         target = new ArrayList<Long>();
         quantity = new ArrayList<Long>();
     }
-
     public Mythical(long id, String kind, String researchName, ArrayList<Long> target, ArrayList<Long> quantity) {
         this.id = id;
         this.kind = kind;
@@ -61,10 +60,18 @@ public class Mythical {
         this.quantity = quantity;
     }
 
-    //Add's
+    /**
+     * Afegir un target al array de targets
+     * @param target Long id del pokemon a afegir
+     */
     public void addTarget(Long target){
         this.target.add(target);
     }
+
+    /**
+     * Afegir quantitat de pokeons a capturar
+     * @param quantity Long quantitat de pokemons a inserir
+     */
     public void addQuantity(Long quantity){
         this.quantity.add(quantity);
     }

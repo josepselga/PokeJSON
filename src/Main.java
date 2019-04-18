@@ -9,7 +9,6 @@ import java.text.ParseException;
  * @since 1.0
  */
 
-
 public final class Main {
     public static void main(String[] args) {
 
@@ -23,10 +22,7 @@ public final class Main {
 
             System.out.println ("Benvingut a PokéJSON, aconsegueix-los tots!");
 
-
-
             do{
-
                 do{
                     menu.mostraMenu();
                 }while (!menu.comprovaOpcio());
@@ -60,7 +56,6 @@ public final class Main {
                         System.out.println("Adeu! Ens veiem aviat :)");
                         break;
                 }
-
             }while (menu.getOpcio() != 9);
 
         }catch (FileNotFoundException e) {

@@ -12,16 +12,17 @@ import java.util.Random;
 
 public class Logica {
 
-    private static final int EARTH_RADIUS;
-
-    static {
-        EARTH_RADIUS = 6371;
-    }
+    private static final int EARTH_RADIUS = 6371;
 
     public Logica() {
     }
 
-    //Funcio que converteix el nom d'un pokemon a id numeric
+    /**
+     * Funcio per consultar l'ID corresponent al nom d'un Pokemon
+     * @param name String del nom del Pokemon
+     * @param poke Array de pokemons on es fa la consulta del ID
+     * @return long que representa l'id del pokemon consultat
+     */
     private long nameToID(String name, Pokemon[] poke) {
         long id = -1;
 
@@ -33,7 +34,12 @@ public class Logica {
         return id;
     }
 
-    //Funcio que converteix l'id d'un pokemon al seu nom
+    /**
+     * Funcio per consultar el nom corresponent al ID d'un Pokemon
+     * @param id long que representa l'id del pokemon del que volem el nom
+     * @param poke Array de pokemons on es fa la consulta del nom
+     * @return String del nom del Pokemon
+     */
     private String idToName(Long id, Pokemon[] poke){
         String name;
         String nameCap = null;
@@ -46,7 +52,12 @@ public class Logica {
         return nameCap;
     }
 
-    //Funcio que ens diu si el pokemon es mitic o no
+    /**
+     * Funcio que ens diu si el pokemon es mitic o no
+     * @param mythicals Array on trobem els pokemons mythics
+     * @param id long que representa l'ID del pokemon que volem saber si es mythic
+     * @return boolean que ens dira si el pokemon es mythic o no
+     */
     public boolean itsMythic (ArrayList<Mythical> mythicals, long id) {
 
         boolean flag = false;
@@ -57,11 +68,15 @@ public class Logica {
                 flag = true;
             }
         }
-
         return flag;
     }
 
-    //Funcio que ens diu si el pokemon es llegendari o no
+    /**
+     * Funcio que ens diu si el pokemon es llegendari o no
+     * @param legends Array on trobem els pokemons llegendaris
+     * @param id long que representa l'ID del pokemon que volem saber si es llegendari
+     * @return boolean que ens dira si el pokemon es llegendari o no
+     */
     public boolean itsLegend (ArrayList<Legend> legends, long id) {
 
         boolean flag = false;
@@ -72,11 +87,17 @@ public class Logica {
                 flag = true;
             }
         }
-
         return flag;
     }
 
-    //Proces que duu a terme la captura d'un Pokemon
+    /**
+     * Proces que duu a terme la captura d'un Pokemon
+     * @param jugador informacio del jugador, necesaria per fer la captura
+     * @param poke array on trobem tots els pokemons disponibles
+     * @param id id del pokemon que volem capturar
+     * @param balls array on trobem totes les pokeballs disponibles
+     * @param mythicals array amb els pokemones especials
+     */
     public void initiateCapture(Jugador jugador, Pokemon[] poke, long id, Ball[] balls, ArrayList<Mythical> mythicals){
 
         int j = 0;
@@ -119,8 +140,15 @@ public class Logica {
 
     }
 
+    /**
+     * Funcio que comprova la pokeball escollida
+     * @param jugador informacio del jugador
+     * @param intents intents disponibles per caçar el pokemon
+     * @return String que retorna la pokeball escollida
+     */
     private String comprovaChoosedPokeball(Jugador jugador, int intents) {
         String choosedPokeball;
+
         do {
             System.out.println("Queden " + totalPokeballs(jugador) + " Pokéballs i " + intents + "/5 intents. Quin tipus de Pokéball vol fer servir?");
             Scanner entrada = new Scanner(System.in);
@@ -137,6 +165,12 @@ public class Logica {
         return choosedPokeball;
     }
 
+    /**
+     * Funcio que retorna el nom original de la pokeball
+     * @param jugador informacio del jugador
+     * @param choosedPokeball String amb el nom de la pokeball escollida pel jugador
+     * @return String amb el nom original de la pokeball
+     */
     public String tellPokeballName (Jugador jugador, String choosedPokeball) {
 
         String pokeball = " ";
@@ -190,12 +224,14 @@ public class Logica {
                 jugador.restaBall(i);
             }
         }
+    }
 
-
-
-        }
-
-    //comprovo que queden pokeballs de les que ha triat el usuari per llançar
+    /**
+     * Comprova que queden pokeballs de les que ha triat el usuari per llançar
+     * @param jugador Informacio del jugador de la partida
+     * @param choosedPokeball Nom de la pokeball que volem saber si en queden unitats
+     * @return true o false depenent de si el jugador disposa d'unitats
+     */
     public boolean avaliablePokeballName (Jugador jugador, String choosedPokeball){
 
         for (int i = 0; i < jugador.getNumBalls().length; i++) {
@@ -213,12 +249,16 @@ public class Logica {
         return false;
     }
 
-    //comprobem si existeix una pokeball
+    /**
+     * Comprobem si existeix una pokeball
+     * @param jugador Informacio del jugador de la partida
+     * @param choosedPokeball Nom de la pokeball que volem saber si existeix
+     * @return true o false depenent de si existeix o no
+     */
     public boolean correctPokeballName (Jugador jugador, String choosedPokeball) {
         boolean ok = false;
 
         for (int i = 0; i < jugador.getNumBalls().length; i++) {
-
             if (jugador.getNomBalls()[i].equalsIgnoreCase(choosedPokeball)) {
                 ok = true;
             }
@@ -226,9 +266,12 @@ public class Logica {
         return ok;
     }
 
-    //Funcio per saber si el jugador disposa de pokeballs
+    /**
+     * Funcio per saber si el jugador disposa de pokeballs
+     * @param jugador Informacio del jugador de la partida
+     * @return ens retorna true o false depenent de si el jugador te o no pokeballs
+     */
     public boolean checkPokeballs (Jugador jugador) {
-
         boolean pokeballs = false;
 
         for (int i = 0; i < jugador.getNumBalls().length; i++) {
@@ -240,7 +283,11 @@ public class Logica {
         return pokeballs;
     }
 
-    //Funcio que calcula el total de pokeballs que disposa el jugador
+    /**
+     * Funcio que calcula el total de pokeballs que disposa el jugador
+     * @param jugador Informacio del jugador de la partida
+     * @return int amb el nombre de pokeballs que te el jugador
+     */
     private int totalPokeballs (Jugador jugador){
         int total = 0;
 
@@ -250,7 +297,12 @@ public class Logica {
         return total;
     }
 
-    //Funcio que demana un pokemon al usuari i retorna l'id
+    /**
+     * Funcio que demana un pokemon al usuari i retorna l'id
+     * @param poke Array amb tots els pokemons que existeixen
+     * @param tipusConuslta String que ens diu si volem una consulta de informacio o de reserca d'un pokemon
+     * @return long amb l'id del pokemon que ha introduit
+     */
     public long demanaPokemon(Pokemon[] poke, String tipusConuslta){
         //Demanem Pokemon
         if(tipusConuslta.equals("info")){
@@ -273,7 +325,12 @@ public class Logica {
         }
     }
 
-    //Funcio que comprova si existeix pokemon
+    /**
+     * Funcio que comprova si existeix pokemon
+     * @param id ID del pokemon que volem saber si existeix
+     * @param poke Array amb tots els pokemons que existeixen
+     * @return boolean que ens diu si el pokemon existeix o no
+     */
     public boolean existeixPokemon(Long id , Pokemon[] poke){
         for(int i = 0 ; i < poke.length ; i++){
             if(poke[i].getId().equals(id)){
@@ -283,7 +340,13 @@ public class Logica {
         return false;
     }
 
-    //Funcio que ens diu si cal mostrar una missio o no (si esta començada)
+    /**
+     * Funcio que ens diu si cal mostrar una missio o no (si esta començada)
+     * @param jugador Informacio del jugador de la partida
+     * @param mythicals Array amb tots els pokemons mythics que existeixen
+     * @param i Index que representa el pokemon especial de la recerca
+     * @return boolean que ens diu si es una missio començada i no completada
+     */
     private boolean showMission(Jugador jugador, ArrayList<Mythical> mythicals, int i){
         //boolean completed = false;
         boolean started = false;
@@ -317,7 +380,12 @@ public class Logica {
         }
     }
 
-    //Funcio que comproba si hi ha missions començades
+    /**
+     * Funcio que comproba si hi ha missions començades
+     * @param jugador Informacio del jugador de la partida
+     * @param mythicals Array amb tots els pokemons mythics que existeixen
+     * @return boolean que ens diu si hi han missions començades
+     */
     private boolean hihaMissions(Jugador jugador, ArrayList<Mythical> mythicals){
 
         for (int i = 0 ; i < mythicals.size() ; i++){
@@ -328,6 +396,12 @@ public class Logica {
         return false;
     }
 
+    /**
+     * Funcio que comprova si s'ha completat alguna missio especial i en cas afirmatiu inicia la captura
+     * @param jugador Informacio del jugador de la partida
+     * @param poke Array amb tots els pokemons que existeixen
+     * @param mythicals Array amb tots els pokemons mythics que existeixen
+     */
     public void checkMissions(Jugador jugador, Pokemon[] poke, ArrayList<Mythical> mythicals){
 
         for(int i = 0; i < mythicals.size(); i++){
@@ -398,7 +472,10 @@ public class Logica {
         return (probCapture > randomValue);
     }
 
-    // OPCIO 1: afegir monedes al jugador
+    /**
+     * OPCIO 1: afegir monedes al jugador
+     * @param jugador Informacio del jugador de la partida
+     */
     public void afegeixMonedes(Jugador jugador) {
 
         double monedes = -1;
@@ -464,10 +541,13 @@ public class Logica {
                 }
             }
         } while (!flag);
-
     }
 
-    // OPCIO 2: comprar Pokeballs
+    /**
+     * OPCIO 2: Comprar Pokeballs
+     * @param jugador Informacio del jugador de la partida
+     * @param balls Array amb totes les pokeballs disponibles
+     */
     public void compraObjectes(Jugador jugador, Ball[] balls) {
         Scanner entrada = new Scanner(System.in);
         System.out.println("Teniu " + jugador.getMonedes() + " monedes.");
@@ -523,7 +603,10 @@ public class Logica {
         }
     }
 
-    //OPCIO 3: consultar inventari del jugador
+    /**
+     * OPCIO 3: Consultar inventari del jugador
+     * @param jugador Informacio del jugador de la partida
+     */
     public void consultaInventari(Jugador jugador) {
         int j = 0;
         System.out.println("Inventari:");
@@ -544,7 +627,14 @@ public class Logica {
         }
     }
 
-    //OPCIO 4: buscar Pokemon salvatge
+    /**
+     * OPCIO 4: Buscar Pokemon salvatge
+     * @param poke Array amb tots els pokemons que existeixen
+     * @param legends Array amb tots els pokemons llegendaris que existeixen
+     * @param mythicals Array amb tots els pokemons mythics que existeixen
+     * @param jugador Informacio del jugador de la partida
+     * @param balls Array amb tots els tipus de pokeballs disponibles
+     */
     public void buscaPokemonSalvatge(Pokemon[] poke, ArrayList<Legend> legends, ArrayList<Mythical> mythicals, Jugador jugador, Ball[] balls) {
 
         if (checkPokeballs (jugador)) {
@@ -569,10 +659,15 @@ public class Logica {
             System.out.println("Ho sentim, però no té Pokéballs disponibles, pel que no pot buscar Pokémons.");
             System.out.println("Pot adquirir Pokéballs a la botiga!");
         }
-
     }
 
-    //OPCIO 5: fer raid per buscar llegendaris
+    /**
+     * OPCIO 5: Fer raid per buscar llegendaris
+     * @param jugador Informacio del jugador de la partida
+     * @param legends Array amb tots els pokemons llegendaris que existeixen
+     * @param poke Array amb tots els pokemons que existeixen
+     * @param balls Array amb tots els tipus de pokeballs disponibles
+     */
     public void ferRaid (Jugador jugador, ArrayList<Legend> legends, Pokemon[] poke, Ball[] balls) {
 
         double latitudUser;
@@ -640,23 +735,19 @@ public class Logica {
 
             initiateLegendCapture (jugador, poke, gimnasMesProper, balls);
 
-
         }else{
             System.out.println("Ho sentim, però no té Pokéballs disponibles, pel que no pot buscar Pokémons.");
             System.out.println("Pot adquirir Pokéballs a la botiga!");
         }
-
     }
 
     public void initiateLegendCapture (Jugador jugador, Pokemon[] poke, long id, Ball[] balls) {
-
         int j = 0;
         int intents = 5;
         String choosedPokeball = " ";
         String finePokeball = " ";
 
         for (int i = 0; i < poke.length; i++) {
-
             if (poke[i].getId().equals(id)) {
                 j = i;
             }
@@ -703,9 +794,7 @@ public class Logica {
                 probMyBall = balls[i].getCapture_rate();
             }
         }
-
         probMyPokemon = poke[j].getCaptureRate();
-
         probCapture = (Math.pow(probMyBall, 1.5) + Math.pow(probMyPokemon, Math.PI)) / ((double)4096);
 
         return (probCapture > randomValue);
@@ -755,7 +844,14 @@ public class Logica {
         return gimnasProper;
     }
 
-    //Càlcul de la distància entre dos punts mitjançant la Fórmula de Haversine
+    /**
+     * Càlcul de la distància entre dos punts mitjançant la Fórmula de Haversine
+     * @param startLat latitud inicial
+     * @param startLong longitud inicial
+     * @param endLat latitud final
+     * @param endLong longitud final
+     * @return Double amb la distanciea entre els dos punts
+     */
     public double distance(double startLat, double startLong, double endLat, double endLong) {
 
         double dLat  = Math.toRadians((endLat - startLat));
@@ -774,7 +870,12 @@ public class Logica {
         return Math.pow(Math.sin(val / 2), 2);
     }
 
-    //OPCIO 6: veure missions en progress
+    /**
+     * OPCIO 6: Veure missions en progress
+     * @param jugador Informacio del jugador de la partida
+     * @param mythicals Array amb tots els pokemons mythics que existeixen
+     * @param poke Array amb tots els pokemons que existeixen
+     */
     public void recerquesEspecials (Jugador jugador, ArrayList <Mythical> mythicals, Pokemon[] poke){
         if (hihaMissions(jugador, mythicals)){
             System.out.println("Recerques Especials:");

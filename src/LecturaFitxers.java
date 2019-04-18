@@ -36,7 +36,11 @@ public class LecturaFitxers {
         return mythical;
     }
 
-    //Metodes
+    /**
+     * S'encarrega de llegir els fitxers json i a volcarlos a les estructures del programa
+     * @throws IOException
+     * @throws ParseException
+     */
     public void llegeixFitxers() throws IOException, ParseException {
         legend = new ArrayList<Legend>();
         mythical = new ArrayList<Mythical>();
