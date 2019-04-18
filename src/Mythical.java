@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 public class Mythical {
 
-
     private long id;
     private String kind;
     private String researchName;
