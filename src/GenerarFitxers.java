@@ -22,6 +22,7 @@ import com.google.gson.JsonParser;
 
 public class GenerarFitxers {
 
+
     /**
      *
      * @param sURL String amb la url de la api a conectar-se

@@ -7,6 +7,7 @@
 
 public class Jugador {
 
+
     //Atributs de la clase
     private int monedes;
     private Long[] idHunted;

@@ -16,6 +16,7 @@ import org.json.simple.parser.ParseException;
 
 public class LecturaFitxers {
 
+
     //Atributs
     private Ball[] balls;
     private Pokemon[] poke;

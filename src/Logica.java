@@ -12,6 +12,7 @@ import java.util.Random;
 
 public class Logica {
 
+
     private static final int EARTH_RADIUS = 6371;
 
     public Logica() {
