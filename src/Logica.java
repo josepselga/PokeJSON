@@ -288,26 +288,41 @@ public class Logica {
 
     //Funcio que ens diu si cal mostrar una missio o no (si esta començada)
     private boolean showMission(Jugador jugador, ArrayList<Mythical> mythicals, int i){
-        boolean completed = false;
+        //boolean completed = false;
         boolean started = false;
+
         //Comprobem que la missio estigui començada
         for (int j = 0 ; j < mythicals.get(i).getTarget().size() ; j++){
+
             long idl = mythicals.get(i).getTarget().get(j);
             int idi = (int) idl;
 
             if (jugador.getNumHunted()[idi-1] > 0){
                 started = true;
-                if (jugador.getNumHunted()[idi-1] == mythicals.get(i).getQuantity().get(j)){
+                /*if (jugador.getNumHunted()[idi-1] == mythicals.get(i).getQuantity().get(j)){
                     completed = true;
-                }
+                }*/
             }
-            if (completed && jugador.getNumHunted()[idi-1] >= mythicals.get(i).getQuantity().get(j)){
+
+            /*if (completed && jugador.getNumHunted()[idi-1] >= mythicals.get(i).getQuantity().get(j)){
                 completed = true;
             }else{
                 completed = false;
-            }
+            }*/
 
         }
+        //Comprovar si la misio esta completa
+        boolean completed = true;
+        for(int j = 0; j < mythicals.get(i).getTarget().size(); j++) {
+
+            long k = mythicals.get(i).getTarget().get(j);
+            int l = (int) k;
+
+            if (jugador.getNumHunted()[l - 1] < mythicals.get(i).getQuantity().get(j)) {
+                completed = false;
+            }
+        }
+
         if (started && !completed){
             return true;
         }else{
