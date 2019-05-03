@@ -23,7 +23,7 @@ import com.google.gson.JsonParser;
 public class GenerarFitxers {
 
     /**
-     *
+     * conexio amb la API de Pokemon per obtenir les dades necesaries
      * @param sURL String amb la url de la api a conectar-se
      * @return JsonObject que conte la info que hem consultat de la api
      * @throws IOException
