@@ -12,15 +12,19 @@ public class Menu {
     //Atributs de la clase
     private int opcio;
 
-    //Metodes de la classe
+    //Constructor
     public Menu(){
         opcio = 0;
     }
 
+    //Getter
     public int getOpcio() {
         return opcio;
     }
 
+    /**
+     * Mostra per pantalla totes les opcions disponibles del PokeJson
+     */
     public void mostraMenu(){
         System.out.println (" ");
         System.out.println ("   1. Afegir monedes ");
@@ -36,6 +40,11 @@ public class Menu {
         System.out.println ("Seleccioni una opció: ");
     }
 
+    /**
+     * Llegeix la opcio seleccionada per l'usuari i comprova que la opcio
+     * sigui correcte
+     * @return boolea que indica si la opcio es correcte o no
+     */
     public boolean comprovaOpcio (){
         Scanner entrada = new Scanner (System.in);
 
