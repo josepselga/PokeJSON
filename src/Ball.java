@@ -1,4 +1,5 @@
-/** Clase objecte de les Pokeballs.
+/**
+ * Clase objecte de les Pokeballs.
  * @author Josep Lluis
  * @author Josep Selga
  * @version 1.5
@@ -12,7 +13,7 @@ public class Ball {
     private int capture_rate;
     private int price;
 
-    //Metodes de la clase
+    //Constructor
     public Ball(String name, int capture_rate, int price) {
         this.name = name;
         this.capture_rate = capture_rate;

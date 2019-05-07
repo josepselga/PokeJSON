@@ -1,4 +1,5 @@
-/** Clase objecte dels Pokemons Legendaris.
+/**
+ * Clase objecte dels Pokemons Legendaris.
  * @author Josep Lluis
  * @author Josep Selga
  * @version 1.5
@@ -6,16 +7,16 @@
  */
 
 public class Legend {
+        //Atributs
         private long id;
         private String kind;
         private String gymName;
         private double longitude;
         private double latitude;
 
+        //Constructors
         public Legend() {
-
         }
-
         public Legend(long id, String kind, String gymName, double x, double y) {
                 this.id = id;
                 this.kind = kind;

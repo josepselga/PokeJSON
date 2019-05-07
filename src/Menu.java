@@ -1,11 +1,12 @@
-/** Conté tot el que està relacionat amb els menús del programa.
+import java.util.Scanner;
+
+/**
+ *Conté tot el que està relacionat amb els menús del programa.
  * @author Josep Lluis
  * @author Josep Selga
  * @version 1.5
  * @since 1.0
  */
-
-import java.util.Scanner;
 
 public class Menu {
 

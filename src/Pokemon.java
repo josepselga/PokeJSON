@@ -1,4 +1,5 @@
-/** Clase amb la logica del programa
+/**
+ * Clase amb la info d'un pokemon
  * @author Josep Lluis
  * @author Josep Selga
  * @version 1.5
@@ -12,7 +13,7 @@ public class Pokemon {
     private String name;
     private int capture_rate;
 
-    //Metodes de la clase
+    //Constructor
     public Pokemon(Long id, String nom, int capture_rate) {
         this.id = id;
         this.name = nom;

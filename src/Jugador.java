@@ -1,4 +1,5 @@
-/** Classe que representa el jugador de la partida i tota la seva info
+/**
+ * Classe que representa el jugador de la partida i tota la seva info
  * @author Josep Lluis
  * @author Josep Selga
  * @version 1.5

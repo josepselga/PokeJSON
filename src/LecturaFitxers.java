@@ -1,9 +1,3 @@
-/** Classe de lectura de fitxers JSON.
- * @author Josep Lluis
- * @author Josep Selga
- * @version 1.5
- * @since 1.0
- */
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,6 +7,14 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+
+/**
+ * Classe de lectura de fitxers JSON.
+ * @author Josep Lluis
+ * @author Josep Selga
+ * @version 1.5
+ * @since 1.0
+ */
 
 public class LecturaFitxers {
 

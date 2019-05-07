@@ -15,8 +15,11 @@ public final class Main {
 
         try{
             Menu menu = new Menu();
+
+            //Inicialitzem i llegim fitxers JSON
             LecturaFitxers json = new LecturaFitxers();
             json.llegeixFitxers();
+
             Jugador jugador = new Jugador(json.getPoke(), json.getBalls());
             Logica logic = new Logica();
             GenerarFitxers fitxers = new GenerarFitxers();
@@ -24,11 +27,12 @@ public final class Main {
             System.out.println ("Benvingut a PokéJSON, aconsegueix-los tots!");
 
             do{
+                //Demanem opcio fins que sigui correcte
                 do{
                     menu.mostraMenu();
                 }while (!menu.comprovaOpcio());
 
-                switch (menu.getOpcio()){
+                switch (menu.getOpcio()){       //Depenent de l'opcio inicialitzem una cosa o altre
                     case 1:
                         logic.afegeixMonedes(jugador);
                         break;

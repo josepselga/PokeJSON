@@ -1,4 +1,5 @@
-/** Clase objecte dels Pokémons Mítics.
+/**
+ * Clase objecte dels Pokémons Mítics.
  * @author Josep Lluis
  * @author Josep Selga
  * @version 1.5
@@ -8,12 +9,14 @@ import java.util.ArrayList;
 
 public class Mythical {
 
+    //Atributs
     private long id;
     private String kind;
     private String researchName;
     private ArrayList<Long> target;
     private ArrayList<Long> quantity;
 
+    //Constructors
     public Mythical() {
         target = new ArrayList<Long>();
         quantity = new ArrayList<Long>();

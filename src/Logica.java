@@ -1,19 +1,21 @@
-/** Classe amb la logica del programa
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.Random;
+
+/**
+ * Classe amb la logica del programa
  * @author Josep Lluis
  * @author Josep Selga
  * @version 1.5
  * @since 1.0
  */
 
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.Random;
-
 public class Logica {
 
     private static final int EARTH_RADIUS = 6371;
 
+    //Constructor
     public Logica() {
     }
 
@@ -26,9 +28,10 @@ public class Logica {
     private long nameToID(String name, Pokemon[] poke) {
         long id = -1;
 
+        //Busquem el nom del pokemon
         for (int i = 0; i < poke.length; i++){
             if (poke[i].getNom().equals(name)){
-                id = poke[i].getId();
+                id = poke[i].getId();               //obtenim l'id corresponent al nom
             }
         }
         return id;
@@ -43,9 +46,11 @@ public class Logica {
     private String idToName(Long id, Pokemon[] poke){
         String name;
         String nameCap = null;
+
+        //Busquem l'ID del pokemon
         for (int i = 0; i < poke.length; i++){
             if (poke[i].getId().equals(id)){
-                name = poke[i].getNom();
+                name = poke[i].getNom();        ///obteim el nom corresponent al id
                 nameCap = name.substring(0, 1).toUpperCase() + name.substring(1);
             }
         }
@@ -59,16 +64,14 @@ public class Logica {
      * @return boolean que ens dira si el pokemon es mythic o no
      */
     public boolean itsMythic (ArrayList<Mythical> mythicals, long id) {
-
-        boolean flag = false;
+        boolean mythic = false;
 
         for (int i = 0; i < mythicals.size(); i++) {
-
             if (id == mythicals.get(i).getId()) {
-                flag = true;
+                mythic = true;
             }
         }
-        return flag;
+        return mythic;
     }
 
     /**
@@ -78,16 +81,14 @@ public class Logica {
      * @return boolean que ens dira si el pokemon es llegendari o no
      */
     public boolean itsLegend (ArrayList<Legend> legends, long id) {
-
-        boolean flag = false;
+        boolean legend = false;
 
         for (int i = 0; i < legends.size(); i++) {
-
             if (id == legends.get(i).getId()) {
-                flag = true;
+                legend = true;
             }
         }
-        return flag;
+        return legend;
     }
 
     /**
