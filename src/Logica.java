@@ -31,7 +31,8 @@ public class Logica {
         //Busquem el nom del pokemon
         for (int i = 0; i < poke.length; i++){
             if (poke[i].getNom().equals(name)){
-                id = poke[i].getId();               //obtenim l'id corresponent al nom
+                //obtenim l'id corresponent al nom
+                id = poke[i].getId();
             }
         }
         return id;
@@ -50,7 +51,8 @@ public class Logica {
         //Busquem l'ID del pokemon
         for (int i = 0; i < poke.length; i++){
             if (poke[i].getId().equals(id)){
-                name = poke[i].getNom();        ///obteim el nom corresponent al id
+                //obteim el nom corresponent al id
+                name = poke[i].getNom();
                 nameCap = name.substring(0, 1).toUpperCase() + name.substring(1);
             }
         }
@@ -66,6 +68,7 @@ public class Logica {
     public boolean itsMythic (ArrayList<Mythical> mythicals, long id) {
         boolean mythic = false;
 
+        //Busquem el nom del pokemon a la llista de mítics
         for (int i = 0; i < mythicals.size(); i++) {
             if (id == mythicals.get(i).getId()) {
                 mythic = true;
@@ -106,6 +109,7 @@ public class Logica {
         String choosedPokeball = " ";
         String finePokeball = " ";
 
+        //Busquem el ID al Array de Pokemons
         for (int i = 0; i < poke.length; i++) {
 
             if (poke[i].getId().equals(id)) {
@@ -117,13 +121,15 @@ public class Logica {
 
         while (checkPokeballs(jugador) && intents > 0) {
 
-            choosedPokeball = comprovaChoosedPokeball(jugador, intents);                        //Quina pokeball vols utilitzar?
-
+            //Quina pokeball vols utilitzar?
+            choosedPokeball = comprovaChoosedPokeball(jugador, intents);
             updatePokeballs (jugador, choosedPokeball);
 
+            //Control de captura
             if (huntedPokemon(choosedPokeball, balls, j, poke)){
                 updateHuntedNumber(jugador, id);
                 System.out.println("El pokémon " + poke[j].getNom() + " ha estat capturat!");
+                //Repàs de les missions
                 checkMissions (jugador, poke, mythicals);
                 return;
             }else{
@@ -133,6 +139,7 @@ public class Logica {
             }
         }
 
+        //Control de boles restants
         if (!checkPokeballs(jugador)){
             System.out.println("No queden Pokéballs...");
         }else{
@@ -185,16 +192,30 @@ public class Logica {
         return pokeball;
     }
 
+    /**
+     * Funcio que actualitza el nombre de Pokemons capturats d'un tipus
+     * @param jugador informacio del jugador
+     * @param id Long amb el id del Pokemon capturat
+     */
     public void updateHuntedNumber (Jugador jugador, Long id){
 
         for (int i = 0; i < jugador.getIdHunted().length; i++){
 
             if (jugador.getIdHunted()[i].equals(id)){
+                //Actualització del nombre de Pokemons capturats amb id "id"
                 jugador.updateHunted(i);
             }
         }
     }
 
+    /**
+     * Funcio que retorna un boleà que indica si s'ha capturat el Pokémon
+     * @param choosedPokeball Pokeball escollida pel jugador
+     * @param balls Array de Pokeballs amb la informació de la probabilitat d'encert
+     * @param j Int de la posició del Pokémon a capturar en el Array de Pokemons
+     * @param poke Array amb la informació de captura de tots els Pokemons
+     * @return Boolean que indica si s'ha capturat el Pokémon amb èxit o no
+     */
     public boolean huntedPokemon(String choosedPokeball, Ball[] balls, int j, Pokemon[] poke){
 
         double randomValue = 0;
@@ -203,20 +224,27 @@ public class Logica {
         double probCapture = 0;
 
         Random random = new Random();
-        //producció d'un long aleatòri entre 0 i 1.
+        //Producció d'un long aleatòri entre 0 i 1.
         randomValue = random.nextDouble();
 
+        //Probabilitat de la Pokeball
         for (int i = 0; i < balls.length; i++){
 
             if (balls[i].getName().equalsIgnoreCase(choosedPokeball)){
                 probMyBall = balls[i].getCapture_rate();
             }
         }
+        //Probabilitat del Pokémon
         probMyPokemon = poke[j].getCaptureRate();
         probCapture = (probMyBall/(double)256) + (probMyPokemon/(double)2048);
         return (probCapture > randomValue);
     }
 
+    /**
+     * Funcio que actualitza el nombre de Pokeballs restants
+     * @param jugador informacio del jugador
+     * @param choosedPokeball String amb la Pokeball escollida pel jugador
+     */
     public void updatePokeballs (Jugador jugador, String choosedPokeball){
 
         for (int i = 0; i < jugador.getNumBalls().length; i++) {
@@ -320,7 +348,8 @@ public class Logica {
             int num = Integer.parseInt(input);
             id = (long)num;
             return id;
-        }catch(NumberFormatException e){            //Si ha introduit el nom del pokemon, ho pasem a id
+        }catch(NumberFormatException e){
+            //Si ha introduit el nom del pokemon, ho pasem a id
             id = nameToID(input.toLowerCase(), poke);
             return id;
         }
@@ -432,6 +461,12 @@ public class Logica {
         }
     }
 
+    /**
+     * Funcio que inicia la captura d'un Pokémon mític en cas que s'hagi completat una missió
+     * @param jugador Informacio del jugador de la partida
+     * @param poke Array amb tots els pokemons que existeixen
+     * @param i Int que representa el pokémon mític que correspon a la missió completada
+     */
     private void initiateMythicCapture(Jugador jugador, Pokemon[] poke, int i){
         int intents = 5;
         String choosedPokeball = " ";
@@ -463,8 +498,13 @@ public class Logica {
         }
     }
 
+    /**
+     * Funcio que comprova si s'ha capturat el Pokémon mític.
+     * @return true or false depenent de si s'ha capturat el Pokémon o no
+     */
     private boolean huntedMythicPokemon() {
         double randomValue = 0;
+        //La funció de càlcul de la probabilitat de captura d'un Pokémon mític sempre és 1. Indiferentment de la Pokéball que esculli l'usuari
         double probCapture = 1;
 
         Random random = new Random();
@@ -742,24 +782,33 @@ public class Logica {
         }
     }
 
+    /**
+     * Funció que inicia la captura d'un Pokémon llegendari
+     * @param jugador Informacio del jugador de la partida
+     * @param poke Array amb tots els pokemons que existeixen
+     * @param id ID del Pokémon que volem capturar
+     * @param balls Array amb tots els tipus de pokeballs disponibles
+     */
     public void initiateLegendCapture (Jugador jugador, Pokemon[] poke, long id, Ball[] balls) {
         int j = 0;
         int intents = 5;
-        String choosedPokeball = " ";
-        String finePokeball = " ";
+        String choosedPokeball;
+        String finePokeball;
 
+        //Extreiem el ID del Pokémon llegendari
         for (int i = 0; i < poke.length; i++) {
             if (poke[i].getId().equals(id)) {
                 j = i;
             }
         }
 
+        //Control de Pokéballs i d'intents
         while (checkPokeballs(jugador) && intents > 0) {
 
             choosedPokeball = comprovaChoosedPokeball(jugador, intents);
-
             updatePokeballs (jugador, choosedPokeball);
 
+            //Control de captura
             if (huntedLegendPokemon(choosedPokeball, balls, j, poke)){
 
                 updateHuntedNumber(jugador, id);
@@ -779,6 +828,14 @@ public class Logica {
         }
     }
 
+    /**
+     * Funció de captura d'un Pokémon llegendari
+     * @param choosedPokeball Nom de la Pokeball escollida
+     * @param balls Array amb tots els tipus de pokeballs disponibles
+     * @param j Int del Pokémon a capturar
+     * @param poke Array amb tots els pokemons que existeixen
+     * @return true or false depenent de si s'ha completat la captura
+     */
     public boolean huntedLegendPokemon(String choosedPokeball, Ball[] balls, int j, Pokemon[] poke){
         double randomValue;
         int probMyBall = 0;
@@ -801,6 +858,13 @@ public class Logica {
         return (probCapture > randomValue);
     }
 
+    /**
+     * Càlcul de la distància mínima entre la posició de l'usuari i el gimnàs més proper
+     * @param legends Array amb la informació de la posició de tots els gimnasos
+     * @param latitudUser Latitud introduïda per l'usuari
+     * @param longitudUser Longitud introduïda per l'usuari
+     * @return Long amb el ID del gimnàs més proper
+     */
     public long distanciaMinima (ArrayList<Legend> legends, double latitudUser, double longitudUser){
         double distanciaMinima = 0;
         int flag = 0;
@@ -851,7 +915,7 @@ public class Logica {
      * @param startLong longitud inicial
      * @param endLat latitud final
      * @param endLong longitud final
-     * @return Double amb la distanciea entre els dos punts
+     * @return Double amb la distancia entre els dos punts
      */
     public double distance(double startLat, double startLong, double endLat, double endLong) {
 
@@ -867,6 +931,11 @@ public class Logica {
         return EARTH_RADIUS * c;
     }
 
+    /**
+     * Operació interna per al càlcul de la distància entre dos punts. Forma part del càlcul de la Fórmula Haversine
+     * @param val Longitud
+     * @return Double amb el valor de l'operació
+     */
     public double haversin(double val) {
         return Math.pow(Math.sin(val / 2), 2);
     }

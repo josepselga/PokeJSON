@@ -58,7 +58,7 @@ public class GenerarFitxers {
         int numHunted;
 
         try {
-            //inicialitzem fitxer HTML
+            //Inicialitzem fitxer HTML
             pokemonsCapturats = new FileOutputStream("pokemonsCapturats.html");
             result = new PrintStream(pokemonsCapturats);
             result.println("<!DOCTYPE html>" + "<html>" + "<head>" + "<title>Pokemons Capturats</title>" + "<style>" + "body {" + "background-color: white;" + "text-align: left;" + "color: black;" + "font-family: Arial;" + "}" + "</style>" + "</head>" + "<body>");
